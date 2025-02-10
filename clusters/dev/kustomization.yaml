@@ -6,5 +6,7 @@ resources:
   - ../../infrastructure/nginx/release.yaml
   - ../../infrastructure/cert-manager/release.yaml
   - ../../infrastructure/cert-manager/cert.yaml
-  - ../../infrastructure/external-dns/release.
+  - ../../infrastructure/external-dns/release.yaml
+  - project-1/service-a
+  - tools/harbor
   # - ../../base/nginx/release.yaml
