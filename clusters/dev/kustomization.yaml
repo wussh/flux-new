@@ -8,4 +8,4 @@ resources:
   - ../../infrastructure/cert-manager/release.yaml
   - ../../infrastructure/cert-manager/cert.yaml
   - ../../infrastructure/external-dns/release.yaml
-  - tools/harbor
+  - tools/harbor/release.yaml
