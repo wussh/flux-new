@@ -3,10 +3,9 @@ kind: Kustomization
 resources:
   - ../../base/namespaces/internal.yaml
   - ../../base/namespaces/backend.yaml
+  - ../../base/nginx/release.yaml
   - ../../infrastructure/nginx/release.yaml
   - ../../infrastructure/cert-manager/release.yaml
   - ../../infrastructure/cert-manager/cert.yaml
   - ../../infrastructure/external-dns/release.yaml
-  - project-1/service-a/release.yaml
   - tools/harbor/release.yaml
-  # - ../../base/nginx/release.yaml
