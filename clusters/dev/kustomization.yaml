@@ -5,5 +5,6 @@ resources:
   - ../../base/namespaces/backend.yaml
   - ../../infrastructure/nginx/release.yaml
   - ../../infrastructure/cert-manager/release.yaml
-  # - ../../infrastructure/cert-manager/cert.yaml
+  - ../../infrastructure/cert-manager/cert.yaml
+  - ../../infrastructure/external-dns/release.yaml
   # - ../../base/nginx/release.yaml
