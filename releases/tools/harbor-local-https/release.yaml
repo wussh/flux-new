@@ -27,7 +27,7 @@ spec:
   values:
     proxy:
       httpProxy: "http://10.70.0.45:31002"
-      httpsProxy: "http://10.70.0.45:31003"
+      httpsProxy: "https://10.70.0.45:31003"
     externalURL: https://10.70.0.45:31003
     internalTLS:
       enabled: true
