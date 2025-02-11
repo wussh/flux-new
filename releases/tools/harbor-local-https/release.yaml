@@ -41,7 +41,7 @@ spec:
         https: "31003"
     nginx:
       tls:
-        enabled: true
+        commonName: 10.70.0.45
       resourcesPreset: nano
     portal:
       resourcesPreset: nano
