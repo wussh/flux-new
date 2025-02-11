@@ -26,4 +26,4 @@ spec:
     namespace: flux-system
   values:
     adminPassword: "Harbor12345"
-    exposureType: nodePort
+    exposureType: proxy
