@@ -44,6 +44,7 @@ spec:
       tls:
         enabled: true
         existingSecret: "harbor-tls"
+      resourcesPreset: nano
     portal:
       resourcesPreset: nano
     core:

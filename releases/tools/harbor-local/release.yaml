@@ -39,6 +39,7 @@ spec:
     nginx:
       tls:
         enabled: false
+      resourcesPreset: nano
     portal:
       resourcesPreset: nano
     core:
