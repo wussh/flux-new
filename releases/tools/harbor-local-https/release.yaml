@@ -1,7 +1,7 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: OCIRepository
 metadata:
-  name: harbor-local
+  name: harbor-local-https
   namespace: flux-system
 spec:
   interval: 10m
@@ -15,14 +15,14 @@ spec:
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: harbor-local
+  name: harbor-local-https
   namespace: internal
 spec:
-  releaseName: harbor-local
+  releaseName: harbor-local-https
   interval: 5m
   chartRef:
     kind: OCIRepository
-    name: harbor-local
+    name: harbor-local-https
     namespace: flux-system
   values:
     proxy:
