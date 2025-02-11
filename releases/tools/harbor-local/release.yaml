@@ -25,6 +25,17 @@ spec:
     name: harbor-local
     namespace: flux-system
   values:
+  proxy:
+    httpProxy: "10.70.0.45:31000"
+    httpsProxy: 10.70.0.45:31443
+    noProxy: 127.0.0.1,localhost,.local,.internal
+    components:
+      - core
+      - jobservice
+      - trivy
+  ipFamily:
+    ipv4:
+      enabled: true
     externalURL: http://10.70.0.45:31000
     adminPassword: "Harbor12345"
     exposureType: proxy
