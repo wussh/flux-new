@@ -44,6 +44,19 @@ spec:
       tls:
         enabled: true
         existingSecret: "harbor-tls"
+    portal:
+      resourcesPreset: nano
+    core:
+      resourcesPreset: nano
+    jobservice:
+      resourcesPreset: nano
+    registry:
+      server:
+        resourcesPreset: nano
+      controller:
+        resourcesPreset: nano
+    trivy:
+      resourcesPreset: nano
 ---
 apiVersion: v1
 kind: Secret
