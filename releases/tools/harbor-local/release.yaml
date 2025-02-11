@@ -1,17 +1,3 @@
-apiVersion: source.toolkit.fluxcd.io/v1beta2
-kind: OCIRepository
-metadata:
-  name: harbor
-  namespace: flux-system
-spec:
-  interval: 10m
-  layerSelector:
-    mediaType: "application/vnd.cncf.helm.chart.content.v1.tar+gzip"
-    operation: copy
-  url: oci://registry-1.docker.io/bitnamicharts/harbor
-  ref:
-    tag: "24.3.0"
----
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
