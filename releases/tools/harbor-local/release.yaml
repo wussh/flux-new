@@ -33,6 +33,8 @@ spec:
     exposureType: proxy
     service:
       type: NodePort
+      tls:
+        enabled: false
       ports:
         http: 80
         https: 443
