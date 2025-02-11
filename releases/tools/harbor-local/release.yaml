@@ -25,5 +25,9 @@ spec:
     name: harbor-local
     namespace: flux-system
   values:
+    externalURL: http://10.70.0.45:31000
     adminPassword: "Harbor12345"
     exposureType: proxy
+    service:
+      nodePort:
+        http: 31000
