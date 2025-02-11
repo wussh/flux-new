@@ -20,14 +20,10 @@ metadata:
 spec:
   releaseName: harbor-local
   interval: 5m
-  chart:
-    spec:
-      chart: harbor
-      sourceRef:
-        kind: OCIRepository
-        name: harbor-local
-        namespace: flux-system
-      version: "24.3.0"
+  chartRef:
+    kind: OCIRepository
+    name: harbor-local
+    namespace: flux-system
   values:
     adminPassword: "Harbor12345"
     exposureType: nodePort
