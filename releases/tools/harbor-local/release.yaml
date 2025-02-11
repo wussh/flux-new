@@ -39,3 +39,16 @@ spec:
     nginx:
       tls:
         enabled: false
+    portal:
+      resourcesPreset: nano
+    core:
+      resourcesPreset: nano
+    jobservice:
+      resourcesPreset: nano
+    registry:
+      server:
+        resourcesPreset: nano
+      controller:
+        resourcesPreset: nano
+    trivy:
+      resourcesPreset: nano
