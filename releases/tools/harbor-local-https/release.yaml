@@ -1,79 +1,60 @@
-apiVersion: source.toolkit.fluxcd.io/v1beta2
-kind: OCIRepository
-metadata:
-  name: harbor-local-v1
-  namespace: flux-system
-spec:
-  interval: 10m
-  layerSelector:
-    mediaType: "application/vnd.cncf.helm.chart.content.v1.tar+gzip"
-    operation: copy
-  url: oci://registry-1.docker.io/bitnamicharts/harbor
-  ref:
-    tag: "24.3.0"
----
-apiVersion: helm.toolkit.fluxcd.io/v2
-kind: HelmRelease
-metadata:
-  name: harbor-local-v1
-  namespace: internal
-spec:
-  releaseName: harbor-local-v1
-  interval: 5m
-  chartRef:
-    kind: OCIRepository
-    name: harbor-local-v1
-    namespace: flux-system
-  values:
-    proxy:
-      httpProxy: "http://10.70.0.45:31002"
-      httpsProxy: "https://10.70.0.45:31003"
-    externalURL: https://10.70.0.45:31003
-    adminPassword: "Harbor12345"
-    exposureType: proxy
-    internalTLS:
-      enabled: true
-    service:
-      type: NodePort
-      ports:
-        http: 80
-        https: 443
-      nodePorts:
-        http: "31002"
-        https: "31003"
-    nginx:
-      tls:
-        commonName: 10.70.0.45:31003
-      resourcesPreset: nano
-    portal:
-      resourcesPreset: nano
-    core:
-      resourcesPreset: nano
-    jobservice:
-      resourcesPreset: nano
-    registry:
-      server:
-        resourcesPreset: nano
-      controller:
-        resourcesPreset: nano
-    trivy:
-      resourcesPreset: nano
-# ---
-# apiVersion: v1
-# kind: Secret
+# apiVersion: source.toolkit.fluxcd.io/v1beta2
+# kind: OCIRepository
 # metadata:
-#   name: harbor-tls
-#   namespace: internal
-# type: kubernetes.io/tls
-# data:
-#   tls.crt: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUZDekNDQXZPZ0F3SUJBZ0lVSzk0N3RUZHF5bld5Z0RWQldLWkkrYVdLQTlBd0RRWUpLb1pJaHZjTkFRRUwKQlFBd0ZURVRNQkVHQTFVRUF3d0tNVEF1TnpBdU1DNDBOVEFlRncweU5UQXlNVEV3T0RBeU1ESmFGdzB5TmpBeQpNVEV3T0RBeU1ESmFNQlV4RXpBUkJnTlZCQU1NQ2pFd0xqY3dMakF1TkRVd2dnSWlNQTBHQ1NxR1NJYjNEUUVBCg==
-#   tls.key: LS0tLS1CRUdJTiBQUklWQVRFIEtFWS0tLS0tCk1JSUpRZ0lCQURBTkJna3Foa2lHOXcwQkFRRUZBQVNDQ1N3d2dna29BZ0VBQW9JQ0FRREpnQ1VnVmZ1UzUvOUkKdlI0bE1XQStYU1U0Q0VjZ25jM3R0aHo4V0JxSFVFVjNKZHVySnZLSUwxdGhiR2hEcHpqdlFqUkgzdDEwT2ZPLwpKRnR5TmZLZTdQdXdkRmtGZ3YxdlpjdngybWRXd1NrdXlSOFBrOVA1d1FMYzdUTUhNaDltdTVnNFNLSW1LclY2CjNLeExRVXZQaVU2ZElsaUVLUzQwUzBReUdZTnVOb09DNVBvdWVXeHlEOGZPZllVZXEzUHY5MzBFMzJIUitVUTkKQmR4SFFDTU9TYmMzTjdPOE5NVXo2S2xUOCtSdDlwQWF0M09vWGdSMnYxc1h4UTJKcDdwNHMwSVBoWGU0cythMQo=
+#   name: harbor-local-v1
+#   namespace: flux-system
+# spec:
+#   interval: 10m
+#   layerSelector:
+#     mediaType: "application/vnd.cncf.helm.chart.content.v1.tar+gzip"
+#     operation: copy
+#   url: oci://registry-1.docker.io/bitnamicharts/harbor
+#   ref:
+#     tag: "24.3.0"
 # ---
-# apiVersion: v1
-# kind: Secret
+# apiVersion: helm.toolkit.fluxcd.io/v2
+# kind: HelmRelease
 # metadata:
-#   name: harbor-ca-bundle
+#   name: harbor-local-v1
 #   namespace: internal
-# type: Opaque
-# data:
-#   ca.crt: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUZDekNDQXZPZ0F3SUJBZ0lVSzk0N3RUZHF5bld5Z0RWQldLWkkrYVdLQTlBd0RRWUpLb1pJaHZjTkFRRUwKQlFBd0ZURVRNQkVHQTFVRUF3d0tNVEF1TnpBdU1DNDBOVEFlRncweU5UQXlNVEV3T0RBeU1ESmFGdzB5TmpBeQpNVEV3T0RBeU1ESmFNQlV4RXpBUkJnTlZCQU1NQ2pFd0xqY3dMakF1TkRVd2dnSWlNQTBHQ1NxR1NJYjNEUUVBCg==
+# spec:
+#   releaseName: harbor-local-v1
+#   interval: 5m
+#   chartRef:
+#     kind: OCIRepository
+#     name: harbor-local-v1
+#     namespace: flux-system
+#   values:
+#     proxy:
+#       httpProxy: "http://10.70.0.45:31002"
+#       httpsProxy: "https://10.70.0.45:31003"
+#     externalURL: https://10.70.0.45:31003
+#     adminPassword: "Harbor12345"
+#     exposureType: proxy
+#     internalTLS:
+#       enabled: true
+#     service:
+#       type: NodePort
+#       ports:
+#         http: 80
+#         https: 443
+#       nodePorts:
+#         http: "31002"
+#         https: "31003"
+#     nginx:
+#       tls:
+#         commonName: 10.70.0.45:31003
+#       resourcesPreset: nano
+#     portal:
+#       resourcesPreset: nano
+#     core:
+#       resourcesPreset: nano
+#     jobservice:
+#       resourcesPreset: nano
+#     registry:
+#       server:
+#         resourcesPreset: nano
+#       controller:
+#         resourcesPreset: nano
+#     trivy:
+#       resourcesPreset: nano
