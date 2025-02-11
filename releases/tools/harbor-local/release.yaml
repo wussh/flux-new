@@ -4,6 +4,7 @@ metadata:
   name: harbor-local
   namespace: internal
 spec:
+  releaseName: harbor-local
   interval: 5m
   chart:
     spec:
@@ -15,16 +16,4 @@ spec:
       version: "24.3.0"
   values:
     adminPassword: "Harbor12345"
-    # If you need to set an external URL, update it with your node's IP and NodePort.
-    # externalURL: "http://<node-ip>:30080"
     exposureType: nodePort
-    affinity:
-      podAntiAffinity:
-        requiredDuringSchedulingIgnoredDuringExecution:
-          - labelSelector:
-              matchExpressions:
-                - key: app.kubernetes.io/name
-                  operator: In
-                  values:
-                    - harbor
-            topologyKey: "kubernetes.io/hostname"

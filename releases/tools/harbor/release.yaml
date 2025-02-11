@@ -18,6 +18,7 @@ metadata:
   name: harbor
   namespace: internal
 spec:
+  releaseName: harbor
   interval: 5m
   chart:
     spec:
