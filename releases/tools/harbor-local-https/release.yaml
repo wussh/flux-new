@@ -32,26 +32,6 @@ spec:
     internalTLS:
       enabled: true
       caBundleSecret: "harbor-ca-bundle"
-    core:
-      tls:
-        enabled: true
-        existingSecret: "harbor-tls"
-    jobservice:
-      tls:
-        enabled: true
-        existingSecret: "harbor-tls"
-    portal:
-      tls:
-        enabled: true
-        existingSecret: "harbor-tls"
-    registry:
-      tls:
-        enabled: true
-        existingSecret: "harbor-tls"
-    trivy:
-      tls:
-        enabled: true
-        existingSecret: "harbor-tls"
     service:
       type: NodePort
       ports:
