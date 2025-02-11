@@ -34,5 +34,4 @@ spec:
         http: 80
         https: 443
       nodePorts:
-        http: ""
-        https: ""
+        http: "31000"
