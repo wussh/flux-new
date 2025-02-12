@@ -18,11 +18,11 @@ metadata:
   name: harbor
   namespace: internal
 spec:
-  releaseName: harbor
+  releaseName: harbor-container
   interval: 5m
   chartRef:
     kind: OCIRepository
-    name: harbor-container
+    name: harbor
     namespace: flux-system
   values:
     adminPassword: "Harbor12345"
