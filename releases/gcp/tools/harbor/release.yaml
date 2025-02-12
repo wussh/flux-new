@@ -18,7 +18,7 @@ metadata:
   name: harbor
   namespace: internal
 spec:
-  releaseName: harbor-nih
+  releaseName: harbor
   interval: 5m
   chartRef:
     kind: OCIRepository
@@ -26,20 +26,20 @@ spec:
     namespace: flux-system
   values:
     adminPassword: "Harbor12345"
-    externalURL: https://harbor.wush.site
+    externalURL: https://container.wush.site
     exposureType: ingress
     ingress:
       core:
         ingressClassName: "nginx"
         hostname: harbor.wush.site
         annotations:
-          external-dns.alpha.kubernetes.io/hostname: harbor.wush.site
+          external-dns.alpha.kubernetes.io/hostname: container.wush.site
           cert-manager.io/cluster-issuer: single-dns
           ingress.kubernetes.io/ssl-redirect: "false"
           nginx.ingress.kubernetes.io/ssl-redirect: "false"
         tls:
           - hosts:
-              - harbor.wush.site
+              - container.wush.site
             secretName: harbor-tls
         # extraTls:
         #   - hosts:
