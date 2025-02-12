@@ -37,6 +37,8 @@ spec:
           cert-manager.io/issuer: "letsencrypt-prod"
           nginx.ingress.kubernetes.io/ssl-redirect: "true"
         tls: true
+          hosts:
+            - harbor.wush.site
         # extraTls:
         #   - hosts:
         #       - harbor.wush.site
