@@ -39,6 +39,14 @@ spec:
           - hosts:
               - harbor.wush.site
             secretName: wildcard-wush-site-tls
+    service:
+      type: NodePort
+      ports:
+        http: 80
+      nodePorts:
+        http: "31000"
+    proxy:
+      httpProxy: "http://10.70.0.45:31000"
     portal:
       resourcesPreset: nano
     core:
