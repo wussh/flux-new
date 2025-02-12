@@ -31,7 +31,7 @@ spec:
     ingress:
       core:
         ingressClassName: "nginx"
-        hostname: harbor.wush.site
+        hostname: container.wush.site
         annotations:
           external-dns.alpha.kubernetes.io/hostname: container.wush.site
           cert-manager.io/cluster-issuer: single-dns
