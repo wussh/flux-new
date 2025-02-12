@@ -34,11 +34,13 @@ spec:
         hostname: harbor.wush.site
         annotations:
           external-dns.alpha.kubernetes.io/hostname: harbor.wush.site
+          cert-manager.io/issuer: "letsencrypt-prod"
           nginx.ingress.kubernetes.io/ssl-redirect: "true"
-        extraTls:
-          - hosts:
-              - harbor.wush.site
-            secretName: wildcard-wush-site-tls
+        tls: true
+        # extraTls:
+        #   - hosts:
+        #       - harbor.wush.site
+        #     secretName: wildcard-wush-site-tls
     service:
       type: NodePort
       ports:
