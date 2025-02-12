@@ -22,7 +22,7 @@ spec:
   interval: 5m
   chartRef:
     kind: OCIRepository
-    name: harbor
+    name: harbor-container
     namespace: flux-system
   values:
     adminPassword: "Harbor12345"
