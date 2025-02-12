@@ -18,7 +18,7 @@ metadata:
   name: harbor
   namespace: internal
 spec:
-  releaseName: harbor-test
+  releaseName: harbor
   interval: 5m
   chartRef:
     kind: OCIRepository
