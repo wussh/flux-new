@@ -16,7 +16,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m
-  path: "./releases/dev"
+  path: "./releases/gcp"
   prune: true
   sourceRef:
     kind: GitRepository

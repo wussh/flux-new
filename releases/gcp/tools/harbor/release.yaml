@@ -1,0 +1,64 @@
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: OCIRepository
+metadata:
+  name: harbor
+  namespace: flux-system
+spec:
+  interval: 10m
+  layerSelector:
+    mediaType: "application/vnd.cncf.helm.chart.content.v1.tar+gzip"
+    operation: copy
+  url: oci://registry-1.docker.io/bitnamicharts/harbor
+  ref:
+    tag: "24.3.0"
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: harbor
+  namespace: internal
+spec:
+  releaseName: harbor
+  interval: 5m
+  chartRef:
+    kind: OCIRepository
+    name: harbor-local
+    namespace: flux-system
+  values:
+    adminPassword: "Harbor12345"
+    externalURL: https://harbor.wush.site
+    exposureType: ingress
+    ingress:
+      core:
+        ingressClassName: "nginx"
+        hostname: harbor.wush.site
+        annotations:
+          external-dns.alpha.kubernetes.io/hostname: harbor.wush.site
+          nginx.ingress.kubernetes.io/ssl-redirect: "true"
+        extraTls:
+          - hosts:
+              - harbor.wush.site
+            secretName: wildcard-wush-site-tls
+    portal:
+      resourcesPreset: nano
+    core:
+      resourcesPreset: nano
+    jobservice:
+      resourcesPreset: nano
+    registry:
+      server:
+        resourcesPreset: nano
+      controller:
+        resourcesPreset: nano
+    trivy:
+      resourcesPreset: nano
+    affinity:
+      podAntiAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+                - key: app.kubernetes.io/name
+                  operator: In
+                  values:
+                    - harbor
+            topologyKey: "kubernetes.io/hostname"

@@ -1,0 +1,42 @@
+# apiVersion: source.toolkit.fluxcd.io/v1
+# kind: HelmRepository
+# metadata:
+#   name: external-dns
+#   namespace: flux-system
+# spec:
+#   interval: 10m
+#   url: https://kubernetes-sigs.github.io/external-dns
+# ---
+# apiVersion: helm.toolkit.fluxcd.io/v2
+# kind: HelmRelease
+# metadata:
+#   name: external-dns
+#   namespace: internal
+# spec:
+#   interval: 5m
+#   chart:
+#     spec:
+#       chart: external-dns
+#       sourceRef:
+#         kind: HelmRepository
+#         name: external-dns
+#         namespace: flux-system
+#       version: "1.15.0"
+#   values:
+#     provider:
+#       name: cloudflare
+#     env:
+#       - name: CF_API_TOKEN
+#         valueFrom:
+#           secretKeyRef:
+#             name: cloudflare-api-key
+#             key: apiKey
+# ---
+# apiVersion: v1
+# kind: Secret
+# metadata:
+#   name: cloudflare-api-key
+#   namespace: internal
+# type: Opaque
+# data:
+#   apiKey: dHNhWjYyNzdDMmF6WWlCbnhCa2hlUFdTb25DbTlPLU5ocG1hSUlQRA==
