@@ -34,7 +34,7 @@ spec:
         hostname: harbor.wush.site
         annotations:
           external-dns.alpha.kubernetes.io/hostname: harbor.wush.site
-          cert-manager.io/issuer: "single-dns"
+          cert-manager.io/cluster-issuer: "single-dns"
           nginx.ingress.kubernetes.io/ssl-redirect: "true"
         tls:
           - hosts:
