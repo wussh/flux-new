@@ -34,21 +34,12 @@ spec:
         hostname: container.10.70.0.45.nip.io
         annotations:
           cert-manager.io/cluster-issuer: letsencrypt-internal
-      tls:
+      tls: true
         - hosts:
             - container.10.70.0.45.nip.io
           secretName: container-tls
-        # extraTls:
-        #   - hosts:
-        #       - container.10.70.0.45.nip.io
-        #     secretName: wildcard-cert
     service:
       type: ClusterIP
-      # type: NodePort
-      # ports:
-      #   http: 80
-      # nodePorts:
-      #   http: "31000"
     portal:
       resourcesPreset: nano
     core:
