@@ -41,19 +41,19 @@ spec:
     nginx:
       tls:
         enabled: false
-      resourcesPreset: nano
+      resourcesPreset: micro
     portal:
       resourcesPreset: nano
     core:
-      resourcesPreset: nano
+      resourcesPreset: micro
     jobservice:
       resourcesPreset: nano
     registry:
       relativeurls: true
       server:
-        resourcesPreset: nano
+        resourcesPreset: micro
       controller:
-        resourcesPreset: nano
+        resourcesPreset: micro
     trivy:
       resourcesPreset: nano
     persistence:
