@@ -22,8 +22,6 @@ spec:
           cert-manager.io/cluster-issuer: letsencrypt-internal
           acme.cert-manager.io/http01-ingress-class: "nginx"
         tls: true
-    service:
-      type: ClusterIP
     portal:
       resourcesPreset: nano
     core:
