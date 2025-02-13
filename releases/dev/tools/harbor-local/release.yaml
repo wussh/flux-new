@@ -36,7 +36,7 @@ spec:
         http: 80
         https: 443
       nodePorts:
-        # http: "31000"
+        http: "31000"
         https: "31000"
     nginx:
       tls:
