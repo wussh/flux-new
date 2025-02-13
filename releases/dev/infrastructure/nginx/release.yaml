@@ -28,6 +28,7 @@ spec:
       electionID: "nginx-ingress-leader-election"
       service:
         type: LoadBalancer
+        externalTrafficPolicy: Local
       config:
         entries:
           proxy-body-size: "0"
