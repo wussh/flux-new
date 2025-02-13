@@ -56,3 +56,7 @@ spec:
         resourcesPreset: nano
     trivy:
       resourcesPreset: nano
+    persistence:
+      persistentVolumeClaim:
+        registry:
+          size: 50Gi
