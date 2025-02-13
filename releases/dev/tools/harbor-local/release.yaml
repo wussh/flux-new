@@ -49,6 +49,7 @@ spec:
     jobservice:
       resourcesPreset: nano
     registry:
+      relativeurls: true
       server:
         resourcesPreset: nano
       controller:
