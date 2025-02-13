@@ -59,4 +59,5 @@ spec:
     persistence:
       persistentVolumeClaim:
         registry:
+          storageClass: longhorn
           size: 50Gi
