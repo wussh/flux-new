@@ -1,55 +1,55 @@
-# apiVersion: source.toolkit.fluxcd.io/v1beta2
-# kind: OCIRepository
-# metadata:
-#   name: harbor-local
-#   namespace: flux-system
-# spec:
-#   interval: 10m
-#   layerSelector:
-#     mediaType: "application/vnd.cncf.helm.chart.content.v1.tar+gzip"
-#     operation: copy
-#   url: oci://registry-1.docker.io/bitnamicharts/harbor
-#   ref:
-#     tag: "24.3.0"
-# ---
-# apiVersion: helm.toolkit.fluxcd.io/v2
-# kind: HelmRelease
-# metadata:
-#   name: harbor-local
-#   namespace: internal
-# spec:
-#   releaseName: harbor-local
-#   interval: 5m
-#   chartRef:
-#     kind: OCIRepository
-#     name: harbor-local
-#     namespace: flux-system
-#   values:
-#     proxy:
-#       httpProxy: "http://10.70.0.45:31000"
-#     externalURL: http://10.70.0.45:31000
-#     adminPassword: "Harbor12345"
-#     exposureType: proxy
-#     service:
-#       type: NodePort
-#       ports:
-#         http: 80
-#       nodePorts:
-#         http: "31000"
-#     nginx:
-#       tls:
-#         enabled: false
-#       resourcesPreset: nano
-#     portal:
-#       resourcesPreset: nano
-#     core:
-#       resourcesPreset: nano
-#     jobservice:
-#       resourcesPreset: nano
-#     registry:
-#       server:
-#         resourcesPreset: nano
-#       controller:
-#         resourcesPreset: nano
-#     trivy:
-#       resourcesPreset: nano
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: OCIRepository
+metadata:
+  name: harbor-local
+  namespace: flux-system
+spec:
+  interval: 10m
+  layerSelector:
+    mediaType: "application/vnd.cncf.helm.chart.content.v1.tar+gzip"
+    operation: copy
+  url: oci://registry-1.docker.io/bitnamicharts/harbor
+  ref:
+    tag: "24.3.0"
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: harbor-local
+  namespace: internal
+spec:
+  releaseName: harbor-local
+  interval: 5m
+  chartRef:
+    kind: OCIRepository
+    name: harbor-local
+    namespace: flux-system
+  values:
+    proxy:
+      httpProxy: "http://10.70.0.45:31000"
+    externalURL: http://10.70.0.45:31000
+    adminPassword: "falah0918"
+    exposureType: proxy
+    service:
+      type: NodePort
+      ports:
+        http: 80
+      nodePorts:
+        http: "31000"
+    nginx:
+      tls:
+        enabled: false
+      resourcesPreset: nano
+    portal:
+      resourcesPreset: nano
+    core:
+      resourcesPreset: nano
+    jobservice:
+      resourcesPreset: nano
+    registry:
+      server:
+        resourcesPreset: nano
+      controller:
+        resourcesPreset: nano
+    trivy:
+      resourcesPreset: nano
