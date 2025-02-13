@@ -26,8 +26,8 @@ spec:
     namespace: flux-system
   values:
     proxy:
-      httpProxy: "https://10.70.0.45:31000"
-    externalURL: https://10.70.0.45:31000
+      httpProxy: "https://registry.falahtech.com"
+    externalURL: https://registry.falahtech.com
     adminPassword: "falah0918"
     exposureType: proxy
     service:
