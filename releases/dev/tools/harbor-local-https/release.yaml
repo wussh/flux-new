@@ -20,10 +20,7 @@ spec:
         hostname: container.10.70.0.45.nip.io
         annotations:
           cert-manager.io/cluster-issuer: letsencrypt-internal
-        tls:
-          - hosts:
-              - container.10.70.0.45.nip.io
-            secretName: container-tls
+        tls: true
     service:
       type: ClusterIP
     portal:
