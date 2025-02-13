@@ -15,7 +15,7 @@ spec:
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: harbor-local
+  name: harbor-local-1
   namespace: internal
 spec:
   releaseName: harbor-local
