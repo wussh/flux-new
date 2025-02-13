@@ -23,13 +23,12 @@ spec:
         entries:
           proxy-body-size: "0"
           client-max-body-size: "0"
-      extraArgs:
-        default-ssl-certificate: "internal/wildcard-cert"
       ingressClassResource:
         name: nginx
         default: true
       extraArgs:
         enable-ssl-passthrough: "true"
+        # default-ssl-certificate: "internal/wildcard-cert"
     enableCertManager: true
     enableExternalDNS: true
     ingressClass:
