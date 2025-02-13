@@ -73,7 +73,7 @@ metadata:
   name: harbor
   namespace: internal
 spec:
-  releaseName: harbor
+  releaseName: harbor-testasd
   interval: 5m
   chartRef:
     kind: OCIRepository
