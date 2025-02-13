@@ -28,7 +28,6 @@ spec:
         default: true
       extraArgs:
         enable-ssl-passthrough: "true"
-        # default-ssl-certificate: "internal/wildcard-cert"
     enableCertManager: true
     enableExternalDNS: true
     ingressClass:

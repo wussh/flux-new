@@ -20,6 +20,7 @@ spec:
         hostname: container.10.70.0.45.nip.io
         annotations:
           cert-manager.io/cluster-issuer: letsencrypt-internal
+          acme.cert-manager.io/http01-ingress-class: "nginx"
         tls: true
     service:
       type: ClusterIP
