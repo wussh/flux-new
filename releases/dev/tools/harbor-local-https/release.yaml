@@ -1,10 +1,10 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: harbor-kocak
+  name: harbor-container
   namespace: internal
 spec:
-  releaseName: harbor-kocak
+  releaseName: harbor-container
   interval: 5m
   chartRef:
     kind: OCIRepository
@@ -12,13 +12,14 @@ spec:
     namespace: flux-system
   values:
     adminPassword: "falah0918"
-    externalURL: https://kocak.10.70.0.45.nip.io
+    externalURL: https://container.10.70.0.45.nip.io
     exposureType: ingress
     ingress:
       core:
         ingressClassName: "nginx"
-        hostname: kocak.10.70.0.45.nip.io
+        hostname: container.10.70.0.45.nip.io
         annotations:
+          acme.cert-manager.io/http01-edit-in-place: "true"
           cert-manager.io/cluster-issuer: letsencrypt-internal
           acme.cert-manager.io/http01-ingress-class: "nginx"
           nginx.ingress.kubernetes.io/ssl-redirect: "false"
