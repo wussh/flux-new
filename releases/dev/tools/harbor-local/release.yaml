@@ -73,7 +73,7 @@ metadata:
   name: harbor
   namespace: internal
 spec:
-  releaseName: harbor-testasd
+  releaseName: harbor
   interval: 5m
   chartRef:
     kind: OCIRepository
@@ -86,7 +86,7 @@ spec:
     ingress:
       core:
         ingressClassName: "nginx"
-        hostname: test.wush.site
+        hostname: http://10.70.0.45:31000
         # annotations:
         #   external-dns.alpha.kubernetes.io/hostname: test.wush.site
         #   cert-manager.io/cluster-issuer: single-dns
