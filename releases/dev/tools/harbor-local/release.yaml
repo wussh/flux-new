@@ -1,7 +1,62 @@
+# apiVersion: source.toolkit.fluxcd.io/v1beta2
+# kind: OCIRepository
+# metadata:
+#   name: harbor-local
+#   namespace: flux-system
+# spec:
+#   interval: 10m
+#   layerSelector:
+#     mediaType: "application/vnd.cncf.helm.chart.content.v1.tar+gzip"
+#     operation: copy
+#   url: oci://registry-1.docker.io/bitnamicharts/harbor
+#   ref:
+#     tag: "24.3.0"
+# ---
+# apiVersion: helm.toolkit.fluxcd.io/v2
+# kind: HelmRelease
+# metadata:
+#   name: harbor-local
+#   namespace: internal
+# spec:
+#   releaseName: harbor-local
+#   interval: 5m
+#   chartRef:
+#     kind: OCIRepository
+#     name: harbor-local
+#     namespace: flux-system
+#   values:
+#     proxy:
+#       httpProxy: "http://10.70.0.45:31000"
+#     externalURL: http://10.70.0.45:31000
+#     adminPassword: "Harbor12345"
+#     exposureType: proxy
+#     service:
+#       type: NodePort
+#       ports:
+#         http: 80
+#       nodePorts:
+#         http: "31000"
+#     nginx:
+#       tls:
+#         enabled: false
+#       resourcesPreset: nano
+#     portal:
+#       resourcesPreset: nano
+#     core:
+#       resourcesPreset: nano
+#     jobservice:
+#       resourcesPreset: nano
+#     registry:
+#       server:
+#         resourcesPreset: nano
+#       controller:
+#         resourcesPreset: nano
+#     trivy:
+#       resourcesPreset: nano
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: OCIRepository
 metadata:
-  name: harbor-local
+  name: harbor
   namespace: flux-system
 spec:
   interval: 10m
@@ -15,31 +70,43 @@ spec:
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: harbor-local
+  name: harbor
   namespace: internal
 spec:
-  releaseName: harbor-local
+  releaseName: harbor
   interval: 5m
   chartRef:
     kind: OCIRepository
-    name: harbor-local
+    name: harbor
     namespace: flux-system
   values:
-    proxy:
-      httpProxy: "http://10.70.0.45:31000"
-    externalURL: http://10.70.0.45:31000
-    adminPassword: "Harbor12345"
-    exposureType: proxy
+    adminPassword: "falah0918"
+    externalURL: https://test.wush.site
+    exposureType: ingress
+    ingress:
+      core:
+        ingressClassName: "nginx"
+        hostname: test.wush.site
+        # annotations:
+        #   external-dns.alpha.kubernetes.io/hostname: test.wush.site
+        #   cert-manager.io/cluster-issuer: single-dns
+        #   ingress.kubernetes.io/ssl-redirect: "false"
+        #   nginx.ingress.kubernetes.io/ssl-redirect: "false"
+        # tls:
+        #   - hosts:
+        #       - test.wush.site
+        # extraTls:
+        #   - hosts:
+        #       - harbor.wush.site
+        #     secretName: wildcard-wush-site-tls
     service:
       type: NodePort
       ports:
         http: 80
       nodePorts:
         http: "31000"
-    nginx:
-      tls:
-        enabled: false
-      resourcesPreset: nano
+    proxy:
+      httpProxy: "http://10.70.0.45:31000"
     portal:
       resourcesPreset: nano
     core:
@@ -53,3 +120,13 @@ spec:
         resourcesPreset: nano
     trivy:
       resourcesPreset: nano
+    # affinity:
+    #   podAntiAffinity:
+    #     requiredDuringSchedulingIgnoredDuringExecution:
+    #       - labelSelector:
+    #           matchExpressions:
+    #             - key: app.kubernetes.io/name
+    #               operator: In
+    #               values:
+    #                 - harbor
+    #         topologyKey: "kubernetes.io/hostname"
