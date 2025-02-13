@@ -81,7 +81,7 @@ spec:
     namespace: flux-system
   values:
     adminPassword: "falah0918"
-    externalURL: https://test.wush.site
+    externalURL: http://10.70.0.45:31000
     exposureType: ingress
     ingress:
       core:
