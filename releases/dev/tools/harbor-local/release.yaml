@@ -1,3 +1,66 @@
+# apiVersion: source.toolkit.fluxcd.io/v1beta2
+# kind: OCIRepository
+# metadata:
+#   name: harbor
+#   namespace: flux-system
+# spec:
+#   interval: 10m
+#   layerSelector:
+#     mediaType: "application/vnd.cncf.helm.chart.content.v1.tar+gzip"
+#     operation: copy
+#   url: oci://registry-1.docker.io/bitnamicharts/harbor
+#   ref:
+#     tag: "24.3.0"
+# ---
+# apiVersion: helm.toolkit.fluxcd.io/v2
+# kind: HelmRelease
+# metadata:
+#   name: harbor
+#   namespace: internal
+# spec:
+#   releaseName: harbor
+#   interval: 5m
+#   chartRef:
+#     kind: OCIRepository
+#     name: harbor
+#     namespace: flux-system
+#   values:
+#     proxy:
+#       httpProxy: "https://registry.falahtech.com"
+#     externalURL: https://registry.falahtech.com
+#     adminPassword: "falah0918"
+#     exposureType: proxy
+#     service:
+#       type: NodePort
+#       ports:
+#         http: 80
+#         https: 443
+#       nodePorts:
+#         http: "31000"
+#         https: "31000"
+#     nginx:
+#       tls:
+#         enabled: false
+#       resourcesPreset: micro
+#     portal:
+#       resourcesPreset: nano
+#     core:
+#       resourcesPreset: micro
+#     jobservice:
+#       resourcesPreset: nano
+#     registry:
+#       relativeurls: true
+#       server:
+#         resourcesPreset: micro
+#       controller:
+#         resourcesPreset: micro
+#     trivy:
+#       resourcesPreset: nano
+#     persistence:
+#       persistentVolumeClaim:
+#         registry:
+#           storageClass: longhorn
+#           size: 50Gi
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: OCIRepository
 metadata:
@@ -25,23 +88,19 @@ spec:
     name: harbor
     namespace: flux-system
   values:
-    proxy:
-      httpProxy: "https://registry.falahtech.com"
-    externalURL: https://registry.falahtech.com
     adminPassword: "falah0918"
-    exposureType: proxy
-    service:
-      type: NodePort
-      ports:
-        http: 80
-        https: 443
-      nodePorts:
-        http: "31000"
-        https: "31000"
-    nginx:
-      tls:
-        enabled: false
-      resourcesPreset: micro
+    externalURL: https://registry.falahtech.com
+    exposureType: ingress
+    ingress:
+      core:
+        ingressClassName: "nginx"
+        hostname: registry.falahtech.com
+        annotations:
+          nginx.ingress.kubernetes.io/ssl-redirect: "true"
+        extraTls:
+          - hosts:
+              - registry.falahtech.com
+            secretName: harbor-tls-secret
     portal:
       resourcesPreset: nano
     core:
