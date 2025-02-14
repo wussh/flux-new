@@ -92,7 +92,7 @@ spec:
 
     externalURL: https://registry.falahtech.com
 
-    exposureType: ingress  # Keep Ingress enabled
+    exposureType: ingress
 
     ingress:
       core:
