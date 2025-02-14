@@ -1,10 +1,10 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: harbor-harbor
+  name: harbor-1
   namespace: internal
 spec:
-  releaseName: harbor-harbor
+  releaseName: harbor-1
   interval: 5m
   chartRef:
     kind: OCIRepository
@@ -12,12 +12,12 @@ spec:
     namespace: flux-system
   values:
     adminPassword: "falah0918"
-    externalURL: https://harbor.10.70.0.45.nip.io
+    externalURL: https://test.10.70.0.45.nip.io
     exposureType: ingress
     ingress:
       core:
         ingressClassName: "nginx"
-        hostname: harbor.10.70.0.45.nip.io
+        hostname: test.10.70.0.45.nip.io
         annotations:
           acme.cert-manager.io/http01-edit-in-place: "true"
           cert-manager.io/cluster-issuer: letsencrypt-internal
