@@ -4,7 +4,7 @@ metadata:
   name: harbor-3
   namespace: internal
 spec:
-  releaseName: harbor-3
+  releaseName: harbor-2
   interval: 5m
   chartRef:
     kind: OCIRepository
@@ -12,12 +12,12 @@ spec:
     namespace: flux-system
   values:
     adminPassword: "falah0918"
-    externalURL: https://test.10.70.0.45.sslip.io
+    externalURL: https://test-10-70-0-45.sslip.io
     exposureType: ingress
     ingress:
       core:
         ingressClassName: "nginx"
-        hostname: test.10.70.0.45.sslip.io
+        hostname: test-10-70-0-45.sslip.io
         annotations:
           acme.cert-manager.io/http01-edit-in-place: "true"
           cert-manager.io/cluster-issuer: letsencrypt-internal
