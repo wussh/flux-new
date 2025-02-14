@@ -95,8 +95,9 @@ spec:
       core:
         ingressClassName: "nginx"
         hostname: registry.falahtech.com
-        # annotations:
-          # nginx.ingress.kubernetes.io/ssl-redirect: "true"
+        annotations:
+          nginx.ingress.kubernetes.io/ssl-redirect: "false"
+          ingress.kubernetes.io/ssl-redirect: 'false'
         extraTls:
           - hosts:
               - registry.falahtech.com
