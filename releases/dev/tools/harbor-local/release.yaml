@@ -101,14 +101,6 @@ spec:
           - hosts:
               - registry.falahtech.com
             secretName: harbor-tls-secret
-    service:
-      type: NodePort
-      ports:
-        http: 80
-        https: 443
-      nodePorts:
-        http: "31000"
-        https: "31000"
     portal:
       resourcesPreset: nano
     core:
@@ -128,3 +120,22 @@ spec:
         registry:
           storageClass: longhorn
           size: 50Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: harbor-nodeport
+  namespace: internal
+spec:
+  type: NodePort
+  selector:
+    app.kubernetes.io/name: harbor
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80
+      nodePort: 31000
+    - name: https
+      port: 443
+      targetPort: 443
+      nodePort: 31000
