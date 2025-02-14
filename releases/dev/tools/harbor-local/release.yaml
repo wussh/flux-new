@@ -89,8 +89,11 @@ spec:
     namespace: flux-system
   values:
     adminPassword: "falah0918"
+
     externalURL: https://registry.falahtech.com
-    exposureType: ingress
+
+    exposureType: ingress  # Keep Ingress enabled
+
     ingress:
       core:
         ingressClassName: "nginx"
@@ -101,10 +104,26 @@ spec:
           - hosts:
               - registry.falahtech.com
             secretName: harbor-tls-secret
-    portal:
-      resourcesPreset: nano
+    service:
+      type: NodePort
+      nodePorts:
+        http: 32000
+        https: 32001
+        registry: 32002
     core:
+      service:
+        type: NodePort
+        ports:
+          http: 32000
+          https: 32001
       resourcesPreset: micro
+    portal:
+      service:
+        type: NodePort
+        ports:
+          http: 32000
+          https: 32001
+      resourcesPreset: nano
     jobservice:
       resourcesPreset: nano
     registry:
