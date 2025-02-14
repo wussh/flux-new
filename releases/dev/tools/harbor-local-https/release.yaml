@@ -21,7 +21,6 @@ spec:
         annotations:
           acme.cert-manager.io/http01-edit-in-place: "true"
           cert-manager.io/cluster-issuer: letsencrypt-internal
-          acme.cert-manager.io/http01-ingress-class: "nginx"
           nginx.ingress.kubernetes.io/ssl-redirect: "false"
           ingress.kubernetes.io/ssl-redirect: "false"
         tls: true
