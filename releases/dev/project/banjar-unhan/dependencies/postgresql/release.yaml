@@ -10,10 +10,10 @@ spec:
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: postgresql-banjar-unhan-1
+  name: postgresql-banjar-unhan
   namespace: banjar-unhan
 spec:
-  releaseName: postgresql-banjar-unhan-1
+  releaseName: postgresql-banjar-unhan
   interval: 5m
   chart:
     spec:
