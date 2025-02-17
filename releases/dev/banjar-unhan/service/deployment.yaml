@@ -1,0 +1,65 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: bahan-ajar-config
+data:
+  HOST: "0.0.0.0"
+  PORT: "1339"
+  PUBLIC_URL: "http://127.0.0.1:1339"
+  APP_KEYS: "0i1NSDM1o9J/b0hOXOchYg==,gpZ55FdO4pdWkAvfDJ04Yw==,cqWPiO5klSLPNg4ePmTTPg==,FMSYMZKHHkDmF3YAUTO6xA=="
+  API_TOKEN_SALT: "qcju4lksJ02ptWJfZbX5Aw=="
+  ADMIN_JWT_SECRET: "Xn0QyzF+ZAuTw9qULoQWYw=="
+  TRANSFER_TOKEN_SALT: "xxKt7zi/MQDZnUFnw9b0RQ=="
+  DATABASE_CLIENT: "postgres"
+  DATABASE_HOST: "10.70.0.32"
+  DATABASE_PORT: "5437"
+  DATABASE_NAME: "bahan_ajar_remake"
+  DATABASE_USERNAME: "postgres"
+  DATABASE_PASSWORD: "flh0918"
+  S3_REGION: "us-east-1"
+  S3_ACCESS: "L3XWKlfKP39a21Cv"
+  S3_SECRET: "antRVqohcUIThagJJ74dofItxIx70wKu"
+  S3_ENDPOINT: "http://10.70.0.32:9008"
+  S3_BUCKET: "banjar-remake"
+  JWT_SECRET: "SWtIId14IRFXElKTv/SUyg=="
+  SENTRY_DSN: "http://5427f74d666959482461d990baaf75de@10.70.0.30:9000/44"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bahan-ajar-deployment
+  labels:
+    app: bahan-ajar
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bahan-ajar
+  template:
+    metadata:
+      labels:
+        app: bahan-ajar
+    spec:
+      containers:
+        - name: bahan-ajar
+          image: 10.70.0.28:4321/banjar-unhan/bahan-ajar-cms:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 1339
+          envFrom:
+            - configMapRef:
+                name: bahan-ajar-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: bahan-ajar-service
+spec:
+  type: NodePort
+  selector:
+    app: bahan-ajar
+  ports:
+    - protocol: TCP
+      port: 1339
+      targetPort: 1339
+      nodePort: 31339
