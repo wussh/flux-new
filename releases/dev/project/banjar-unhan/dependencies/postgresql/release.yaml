@@ -25,7 +25,6 @@ spec:
     auth:
       enablePostgresUser: true
       postgresPassword: "flh0918"
-      password: "flh0918"
       database: "bahan_ajar_remake"
     architecture: "standalone"
     image:
