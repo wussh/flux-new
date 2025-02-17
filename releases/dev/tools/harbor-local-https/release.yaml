@@ -20,7 +20,7 @@ spec:
         hostname: test-10-70-0-45.sslip.io
         annotations:
           acme.cert-manager.io/http01-edit-in-place: "true"
-          cert-manager.io/cluster-issuer: letsencrypt-internal
+          cert-manager.io/cluster-issuer: letsencrypt-dns01
           nginx.ingress.kubernetes.io/ssl-redirect: "false"
           ingress.kubernetes.io/ssl-redirect: "false"
         tls: true
