@@ -46,7 +46,7 @@ spec:
             privileged = true
             namespace = "internal"
             poll_timeout = 600
-            helper_image = "gitlab/gitlab-runner-helper:latest"
+            helper_image = "gitlab/gitlab-runner-helper:x86_64-latest"
             service_account = "gitlab-runner"
             cpu_limit = "500m"
             memory_limit = "512Mi"
