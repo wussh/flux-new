@@ -2,6 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: bahan-ajar-config
+  namespace: banjar-unhan
 data:
   HOST: "0.0.0.0"
   PORT: "1339"
@@ -28,6 +29,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: bahan-ajar-deployment
+  namespace: banjar-unhan
   labels:
     app: bahan-ajar
 spec:
@@ -54,6 +56,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: bahan-ajar-service
+  namespace: banjar-unhan
 spec:
   type: NodePort
   selector:
