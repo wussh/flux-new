@@ -28,4 +28,7 @@ spec:
       type: NodePort
       httpPort: 9000
       httpNodePort: 30777
+#admin
 #Falah1234567
+#backend
+#Falah0918PRGM
