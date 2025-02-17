@@ -22,7 +22,7 @@ spec:
         kind: HelmRepository
         name: portainer
         namespace: flux-system
-      version: "latest"
+      version: "1.0.59"
   values:
     service:
       type: NodePort
