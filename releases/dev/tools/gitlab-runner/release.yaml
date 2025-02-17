@@ -29,14 +29,12 @@ spec:
           token = "glrt-JuNUATJa8F9kXJ2EUzf8"
           token_obtained_at = 2025-01-16T04:52:33Z
           token_expires_at = 0001-01-01T00:00:00Z
-          executor = "docker"
-          [runners.custom_build_dir]
           [runners.cache]
             MaxUploadedArchiveSize = 0
             [runners.cache.s3]
             [runners.cache.gcs]
             [runners.cache.azure]
-          [runners.docker]
+          [runners.kubernetes]
             tls_verify = false
             image = "alpine:latest"
             privileged = true
@@ -44,3 +42,6 @@ spec:
             oom_kill_disable = false
             disable_cache = false
             volumes = ["/cache", "/var/run/docker.sock:/var/run/docker.sock"]
+    concurrent: 10
+    rbac:
+      create: true
