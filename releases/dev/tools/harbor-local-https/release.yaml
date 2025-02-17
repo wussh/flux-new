@@ -20,14 +20,14 @@ spec:
         hostname: test.10-70-0-45.sslip.io
         annotations:
           acme.cert-manager.io/http01-edit-in-place: "true"
-          cert-manager.io/cluster-issuer: letsencrypt-dns01
+          cert-manager.io/cluster-issuer: letsencrypt-internal
           nginx.ingress.kubernetes.io/ssl-redirect: "false"
           ingress.kubernetes.io/ssl-redirect: "false"
-        # tls: true
-        extraTls:
-          - hosts:
-              - test.10-70-0-45.sslip.io
-            secretName: wildcard-sslip-tls
+        tls: true
+        # extraTls:
+        #   - hosts:
+        #       - test.10-70-0-45.sslip.io
+        #     secretName: wildcard-sslip-tls
     portal:
       resourcesPreset: nano
     core:
