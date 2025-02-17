@@ -12,18 +12,22 @@ spec:
     namespace: flux-system
   values:
     adminPassword: "falah0918"
-    externalURL: https://test-10-70-0-45.sslip.io
+    externalURL: https://test.10-70-0-45.sslip.io
     exposureType: ingress
     ingress:
       core:
         ingressClassName: "nginx"
-        hostname: test-10-70-0-45.sslip.io
+        hostname: test.10-70-0-45.sslip.io
         annotations:
           acme.cert-manager.io/http01-edit-in-place: "true"
           cert-manager.io/cluster-issuer: letsencrypt-dns01
           nginx.ingress.kubernetes.io/ssl-redirect: "false"
           ingress.kubernetes.io/ssl-redirect: "false"
-        tls: true
+        # tls: true
+        extraTls:
+          - hosts:
+              - test.10-70-0-45.sslip.io
+            secretName: wildcard-sslip-tls
     portal:
       resourcesPreset: nano
     core:
