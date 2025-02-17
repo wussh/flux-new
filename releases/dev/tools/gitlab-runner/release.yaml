@@ -52,7 +52,7 @@ spec:
             memory_limit = "512Mi"
             cpu_requests = "250m"
             memory_requests = "256Mi"
-            dns_policy = "None"
+            dns_policy = "ClusterFirstWithHostNet"
             [runners.kubernetes.dns_config]
               nameservers = ["8.8.8.8", "1.1.1.1"]
               options = [{ name = "single-request-reopen" }]
