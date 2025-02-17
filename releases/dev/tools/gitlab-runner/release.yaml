@@ -24,8 +24,11 @@ spec:
         namespace: flux-system
       version: "0.73.3"
   values:
+    gitlabUrl: "https://git.falahtech.com"
     rbac:
       create: true
+      serviceAccountName: gitlab-runner
+    runnerRegistrationToken: "glrt-j6CQ-QMH67SpfoZph7P7"
     runners:
       config: |
         concurrent = 10
@@ -36,7 +39,7 @@ spec:
         [[runners]]
           name = "gitlab-runner-k8s"
           url = "https://git.falahtech.com"
-          token = "glrt-JuNUATJa8F9kXJ2EUzf8"
+          token = "glrt-j6CQ-QMH67SpfoZph7P7"
           executor = "kubernetes"
           [runners.kubernetes]
             image = "alpine:latest"
