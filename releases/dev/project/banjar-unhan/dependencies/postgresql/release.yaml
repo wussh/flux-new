@@ -32,8 +32,9 @@ spec:
         allowInsecureImages: false
       postgresql:
         auth:
+          enablePostgresUser: true
           postgresPassword: "flh0918"  # Ganti dengan password yang aman
-          username: "postgres"            # Opsional: custom user. Kosongkan jika tidak diperlukan.
+          # username: "postgres"            # Opsional: custom user. Kosongkan jika tidak diperlukan.
           password: "flh0918"       # Password untuk custom user
           database: "bahan_ajar_remake"               # Nama database default
     image:
@@ -54,7 +55,6 @@ spec:
     primary:
       persistence:
         enabled: true
-        storageClass: "standard"
         size: 8Gi
       resourcesPreset: nano
       livenessProbe:
