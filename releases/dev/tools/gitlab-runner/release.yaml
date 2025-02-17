@@ -69,8 +69,8 @@ spec:
             dns_policy = "ClusterFirstWithHostNet"
             cpu_limit = "1000m"
             memory_limit = "2048Mi"
-            cpu_requests = "500m"
-            memory_requests = "512Mi"
+            cpu_requests = "250m"
+            memory_requests = "256Mi"
             [runners.kubernetes.volumes]
               [[runners.kubernetes.volumes.host_path]]
                 name = "docker-insecure-registries"
