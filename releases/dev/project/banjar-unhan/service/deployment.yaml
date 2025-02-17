@@ -30,6 +30,8 @@ kind: Deployment
 metadata:
   name: bahan-ajar-deployment
   namespace: banjar-unhan
+  annotations:
+    reloader.stakater.com/auto: "true"
   labels:
     app: bahan-ajar
 spec:
