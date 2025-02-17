@@ -52,3 +52,10 @@ spec:
             memory_limit = "512Mi"
             cpu_requests = "250m"
             memory_requests = "256Mi"
+            [runners.kubernetes.pod_annotations]
+              container.apparmor.security.beta.kubernetes.io/kaniko = "unconfined"
+            [runners.kubernetes.volumes]
+              [[runners.kubernetes.volumes.host_path]]
+                name = "docker-insecure-registries"
+                mount_path = "/etc/docker/daemon.json"
+                host_path = "/etc/docker/daemon.json"
