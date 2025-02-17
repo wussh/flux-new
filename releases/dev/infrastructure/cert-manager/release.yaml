@@ -10,10 +10,10 @@ spec:
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: cert-manager-1
+  name: cert-manager
   namespace: internal
 spec:
-  releaseName: cert-manager-1
+  releaseName: cert-manager
   interval: 5m
   chart:
     spec:
