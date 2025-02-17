@@ -49,7 +49,7 @@ spec:
             helper_image = "gitlab/gitlab-runner-helper:x86_64-latest"
             service_account = "gitlab-runner"
             cpu_limit = "500m"
-            memory_limit = "512Mi"
+            memory_limit: "1024Mi"
             cpu_requests = "250m"
             memory_requests = "256Mi"
             dns_policy = "ClusterFirstWithHostNet"
