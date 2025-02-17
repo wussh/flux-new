@@ -24,31 +24,11 @@ spec:
         name: bitnami
         namespace: flux-system
   values:
-  values:
-    global:
-      imageRegistry: "docker.io"
-      defaultStorageClass: "standard"
-      security:
-        allowInsecureImages: false
-      postgresql:
-        auth:
-          enablePostgresUser: true
-          postgresPassword: "flh0918"  # Ganti dengan password yang aman
-          # username: "postgres"            # Opsional: custom user. Kosongkan jika tidak diperlukan.
-          password: "flh0918"       # Password untuk custom user
-          database: "bahan_ajar_remake"               # Nama database default
-    image:
-      registry: "docker.io"
-      repository: "bitnami/postgresql"
-      pullPolicy: "IfNotPresent"
     auth:
       enablePostgresUser: true
-      postgresPassword: "bahan_ajar_remake"       # Harus sama dengan global.postgresql.auth.postgresPassword
-      username: "postgres"
+      postgresPassword: "bahan_ajar_remake"
       password: "flh0918"
       database: "bahan_ajar_remake"
-      # replicationUsername: "repl_user"
-      # replicationPassword: "ChangeMeRepl123!"
     architecture: "standalone"
     containerPorts:
       postgresql: 5432
