@@ -23,6 +23,6 @@ spec:
         namespace: flux-system
       version: "1.16.2"
   values:
-    installCRDs: true
+    # installCRDs: true
     crds:
       enabled: true
