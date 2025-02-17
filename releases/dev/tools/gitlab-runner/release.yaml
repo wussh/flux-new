@@ -41,7 +41,6 @@ spec:
           url = "https://git.falahtech.com"
           token = "glrt-j6CQ-QMH67SpfoZph7P7"
           executor = "kubernetes"
-          environment = ["CURL_OPTIONS=--ipv4", "YARN_OPTIONS=--network-timeout 100000"]
           [runners.kubernetes]
             image = "alpine:latest"
             privileged = true
