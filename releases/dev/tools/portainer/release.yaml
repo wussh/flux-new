@@ -10,11 +10,11 @@ spec:
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: portainer-1
+  name: portainer
   namespace: internal
 spec:
   interval: 5m
-  releaseName: portainer-1
+  releaseName: portainer
   chart:
     spec:
       chart: portainer
