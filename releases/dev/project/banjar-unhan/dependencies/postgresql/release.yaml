@@ -30,6 +30,8 @@ spec:
       password: "flh0918"
       database: "bahan_ajar_remake"
     architecture: "standalone"
+    image:
+      tag: "12"
     containerPorts:
       postgresql: 5432
     primary:
