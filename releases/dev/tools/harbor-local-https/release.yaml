@@ -1,10 +1,10 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: harbor-2
+  name: harbor-1
   namespace: internal
 spec:
-  releaseName: harbor-2
+  releaseName: harbor-1
   interval: 5m
   chartRef:
     kind: OCIRepository
