@@ -9,13 +9,13 @@ spec:
   ref:
     tag: "16.4.9"
 ---
-apiVersion: helm.toolkit.fluxcd.io/v2beta1
+apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: postgresql-banjar-unhan-4
+  name: postgresql-banjar-unhan-5
   namespace: banjar-unhan
 spec:
-  releaseName: postgresql-banjar-unhan-4
+  releaseName: postgresql-banjar-unhan-5
   interval: 5m
   chartRef:
     kind: OCIRepository
