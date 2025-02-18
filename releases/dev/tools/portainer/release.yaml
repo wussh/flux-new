@@ -24,6 +24,8 @@ spec:
         namespace: flux-system
       version: "1.0.59"
   values:
+    enterpriseEdition:
+      enabled: true
     service:
       type: NodePort
       httpPort: 9000
