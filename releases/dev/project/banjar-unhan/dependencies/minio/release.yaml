@@ -28,6 +28,9 @@ spec:
       rootPasword: falah0918
     service:
       type: NodePort
+      ports:
+        api: 30010
+        console: 30011
       nodePorts:
         api: "30010"
         console: "30011"
