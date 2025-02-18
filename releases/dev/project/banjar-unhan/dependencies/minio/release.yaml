@@ -31,3 +31,5 @@ spec:
       nodePorts:
         api: "39000"
         console: "39001"
+    provisioning:
+      resourcesPreset: nano
