@@ -22,7 +22,7 @@ data:
   S3_REGION: "us-east-1"
   S3_ACCESS: "L3XWKlfKP39a21Cv"
   S3_SECRET: "antRVqohcUIThagJJ74dofItxIx70wKu"
-  S3_ENDPOINT: "http://10.70.0.32:9008"
+  S3_ENDPOINT: "http://minio-banjar-unhan.banjar-unhan.svc.cluster.local:9000"
   S3_BUCKET: "banjar-remake"
   JWT_SECRET: "SWtIId14IRFXElKTv/SUyg=="
   SENTRY_DSN: "http://5427f74d666959482461d990baaf75de@10.70.0.30:9000/44"
