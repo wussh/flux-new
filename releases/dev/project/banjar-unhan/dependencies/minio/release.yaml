@@ -1,43 +1,43 @@
-# apiVersion: source.toolkit.fluxcd.io/v1beta2
-# kind: OCIRepository
-# metadata:
-#   name: minio
-#   namespace: flux-system
-# spec:
-#   interval: 10m
-#   url: oci://registry-1.docker.io/bitnamicharts/minio
-#   ref:
-#     tag: "15.0.3"
-# ---
-# apiVersion: helm.toolkit.fluxcd.io/v2
-# kind: HelmRelease
-# metadata:
-#   name: minio-banjar-unhan
-#   namespace: banjar-unhan
-# spec:
-#   releaseName: minio-banjar-unhan
-#   interval: 5m
-#   chartRef:
-#     kind: OCIRepository
-#     name: minio
-#     namespace: flux-system
-#   values:
-#     mode: distributed
-#     statefulset:
-#       replicaCount: 4
-#     auth:
-#       rootPasword: "falah0918"
-#     service:
-#       type: NodePort
-#       ports:
-#         api: 30010
-#         console: 30011
-#       nodePorts:
-#         api: "30010"
-#         console: "30011"
-#     containerPorts:
-#       api: 30010
-#       console: 30011
-#     provisioning:
-#       resourcesPreset: nano
-#     resourcesPreset: nano
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: OCIRepository
+metadata:
+  name: minio
+  namespace: flux-system
+spec:
+  interval: 10m
+  url: oci://registry-1.docker.io/bitnamicharts/minio
+  ref:
+    tag: "15.0.3"
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: minio-banjar-unhan
+  namespace: banjar-unhan
+spec:
+  releaseName: minio-banjar-unhan
+  interval: 5m
+  chartRef:
+    kind: OCIRepository
+    name: minio
+    namespace: flux-system
+  values:
+    mode: distributed
+    statefulset:
+      replicaCount: 4
+    auth:
+      rootPasword: "falah0918"
+    service:
+      type: NodePort
+      ports:
+        api: 30010
+        console: 30011
+      nodePorts:
+        api: "30010"
+        console: "30011"
+    containerPorts:
+      api: 30010
+      console: 30011
+    provisioning:
+      resourcesPreset: nano
+    resourcesPreset: nano
