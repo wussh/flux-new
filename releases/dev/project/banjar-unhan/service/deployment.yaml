@@ -3,6 +3,8 @@ kind: ConfigMap
 metadata:
   name: bahan-ajar-config
   namespace: banjar-unhan
+  annotations:
+    reloader.stakater.com/auto: "true"
 data:
   HOST: "0.0.0.0"
   PORT: "1339"
