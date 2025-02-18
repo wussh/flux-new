@@ -28,9 +28,9 @@ spec:
       rootPasword: falah0918
     service:
       type: NodePort
-      nodePorts:
-        api: "39000"
-        console: "39001"
+      # nodePorts:
+      #   api: "39000"
+      #   console: "39001"
     provisioning:
       resourcesPreset: nano
     resourcesPreset: nano
