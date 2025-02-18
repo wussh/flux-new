@@ -33,3 +33,4 @@ spec:
         console: "39001"
     provisioning:
       resourcesPreset: nano
+    resourcesPreset: nano
