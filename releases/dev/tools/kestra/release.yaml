@@ -1,33 +1,33 @@
-apiVersion: source.toolkit.fluxcd.io/v1
-kind: HelmRepository
-metadata:
-  name: kestra
-  namespace: flux-system
-spec:
-  interval: 10m
-  url: https://helm.kestra.io
----
-apiVersion: helm.toolkit.fluxcd.io/v2
-kind: HelmRelease
-metadata:
-  name: kestra
-  namespace: internal
-spec:
-  releaseName: kestra
-  interval: 5m
-  chart:
-    spec:
-      chart: kestra
-      sourceRef:
-        kind: HelmRepository
-        name: kestra
-        namespace: flux-system
-      version: "0.21.3"
-  values:
-    service:
-      type: NodePort
-      nodePort: 30080
-    postgresql:
-      primary:
-        persistence:
-          size: 2Gi
+# apiVersion: source.toolkit.fluxcd.io/v1
+# kind: HelmRepository
+# metadata:
+#   name: kestra
+#   namespace: flux-system
+# spec:
+#   interval: 10m
+#   url: https://helm.kestra.io
+# ---
+# apiVersion: helm.toolkit.fluxcd.io/v2
+# kind: HelmRelease
+# metadata:
+#   name: kestra
+#   namespace: internal
+# spec:
+#   releaseName: kestra
+#   interval: 5m
+#   chart:
+#     spec:
+#       chart: kestra
+#       sourceRef:
+#         kind: HelmRepository
+#         name: kestra
+#         namespace: flux-system
+#       version: "0.21.3"
+#   values:
+#     service:
+#       type: NodePort
+#       nodePort: 30080
+#     postgresql:
+#       primary:
+#         persistence:
+#           size: 2Gi
