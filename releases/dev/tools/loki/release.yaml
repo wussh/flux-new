@@ -36,7 +36,7 @@ spec:
         http_listen_port: 3100
 
       # Enable the built-in test schema for quick testing (do not use in production)
-      useTestSchema: true
+      useTestSchema: false
       testSchemaConfig:
         configs:
           - from: 2024-04-01
