@@ -62,7 +62,9 @@ spec:
     # Create a ClusterIP service to expose Grafana inside the cluster
     service:
       type: NodePort
-      nodeport: 30070
+      port: 80         # The port on the service
+      targetPort: 3000 # The container port where Grafana listens by default
+      nodePort: 30070  # The port on each node through which Grafana will be accessible
 
     # Ingress is disabled by default.
     ingress:
