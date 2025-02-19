@@ -1,10 +1,10 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: loki
+  name: loki-single
   namespace: internal
 spec:
-  releaseName: loki
+  releaseName: loki-single
   interval: 5m
   chart:
     spec:
