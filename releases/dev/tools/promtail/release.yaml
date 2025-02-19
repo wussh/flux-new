@@ -15,59 +15,37 @@ spec:
         namespace: flux-system
       version: "6.16.6"
   values:
-    # values-promtail.yaml
-
-    # Mode DaemonSet untuk Promtail (digunakan untuk mengumpulkan log dari setiap node)
     daemonset:
       enabled: true
       autoscaling:
-        enabled: false  # Aktifkan jika ingin menggunakan autoscaling
-
-    # Pastikan mode Deployment dimatikan (hanya satu mode yang aktif)
+        enabled: false
     deployment:
       enabled: false
-
-    # Konfigurasi image Promtail
-    image:
-      registry: docker.io
-      repository: grafana/promtail
-      tag: latest
-      pullPolicy: IfNotPresent
-
-    # Konfigurasi utama Promtail (file konfigurasi akan di-render sebagai sebuah ConfigMap atau Secret)
     config:
       enabled: true
       file: |
-        server:
-          http_listen_port: 3101
-          log_level: info
         clients:
-          - url: "http://loki-backend.internal.svc.cluster.local:3100/loki/api/v1/push"
-        positions:
-          filename: /run/promtail/positions.yaml
+          - url: "http://loki-gateway.internal.svc.cluster.local/loki/api/v1/push"
         scrape_configs:
-          - job_name: kubernetes-pods
+          - job_name: system
+            static_configs:
+              - targets:
+                  - localhost
+                labels:
+                  job: varlogs
+                  __path__: /var/log/*log
+          - job_name: kubernetes
             kubernetes_sd_configs:
               - role: pod
             relabel_configs:
+              - source_labels: [__meta_kubernetes_pod_node_name]
+                target_label: node
               - source_labels: [__meta_kubernetes_namespace]
                 target_label: namespace
               - source_labels: [__meta_kubernetes_pod_name]
                 target_label: pod
               - source_labels: [__meta_kubernetes_pod_container_name]
                 target_label: container
-              - action: labelmap
-                regex: __meta_kubernetes_pod_label_(.+)
-      logLevel: "info"
-      serverPort: 3101
-      snippets:
-        # extraScrapeConfigs: |
-        #   # Tambahkan scrape_configs tambahan jika diperlukan
-        extraServerConfigs: ""
-        extraLimitsConfig: ""
-        extraRelabelConfigs: []
-
-    # Konfigurasi sumber daya untuk kontainer Promtail
     resources:
       requests:
         cpu: "100m"
@@ -75,25 +53,6 @@ spec:
       limits:
         cpu: "250m"
         memory: "256Mi"
-
-    # Konfigurasi keamanan untuk kontainer
-    containerSecurityContext:
-      allowPrivilegeEscalation: false
-      capabilities:
-        drop: ["ALL"]
-      readOnlyRootFilesystem: true
-
-    # Konfigurasi ServiceAccount untuk Promtail
     serviceAccount:
       create: true
       name: promtail
-
-    # Jika perlu, tambahkan tolerations agar pod dapat dijadwalkan ke node master/control-plane
-    tolerations:
-      - key: "node-role.kubernetes.io/master"
-        operator: "Exists"
-        effect: "NoSchedule"
-
-    # Jika Anda perlu menambahkan volume tambahan (misalnya, untuk membaca log host), tambahkan di sini
-    extraVolumes: []
-    extraVolumeMounts: []
