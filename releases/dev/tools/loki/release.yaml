@@ -28,11 +28,14 @@ spec:
         repository: grafana/loki
         tag: "3.4.2"
         pullPolicy: IfNotPresent
+
       # Disable authentication for testing (enable in production)
       auth_enabled: false
+
       server:
         http_listen_port: 3100
-      # For quick testing, enable the built‑in test schema (do not use in production)
+
+      # Enable the built-in test schema for quick testing (do not use in production)
       useTestSchema: true
       testSchemaConfig:
         configs:
@@ -43,7 +46,8 @@ spec:
             index:
               prefix: index_
               period: 24h
-      # Configure object storage using the local filesystem for testing.
+
+      # Configure storage using a filesystem backend for testing
       storage_config:
         boltdb_shipper:
           active_index_directory: /data/index
@@ -51,7 +55,15 @@ spec:
           shared_store: filesystem
         filesystem:
           directory: /data/chunks
-      # Global resource requests and limits (applies to components that don’t have their own overrides)
+
+      # Add dummy bucketNames to satisfy the helper template
+      storage:
+        bucketNames:
+          chunks: "loki-chunks"
+          ruler: "loki-ruler"
+          admin: "loki-admin"
+
+      # Global resource requests and limits (applies to components without their own overrides)
       resources:
         requests:
           cpu: 200m
@@ -60,16 +72,14 @@ spec:
           cpu: 400m
           memory: 1Gi
 
-    # Simple Scalable targets:
-    # Write target: Handles log ingestion.
     write:
       replicas: 3
-      # Expose the write service via NodePort for external access.
+      # Expose the write service externally via NodePort
       service:
         type: NodePort
-        port: 3100         # Service port
-        targetPort: 3100   # Container port (where Loki listens)
-        nodePort: 30060    # External port on each node
+        port: 3100         # Service port (Loki listens on 3100 inside the pod)
+        targetPort: 3100   # Container port
+        nodePort: 30060      # Port on each node for external access
       resources:
         requests:
           cpu: 200m
@@ -78,7 +88,6 @@ spec:
           cpu: 400m
           memory: 1Gi
 
-    # Read target: Handles query operations.
     read:
       replicas: 3
       resources:
@@ -89,7 +98,6 @@ spec:
           cpu: 400m
           memory: 1Gi
 
-    # Backend target: Supports query and index operations.
     backend:
       replicas: 3
       resources:
@@ -100,8 +108,7 @@ spec:
           cpu: 400m
           memory: 1Gi
 
-    # Persistence is disabled for quick testing.
-    # In production you should enable persistence and choose an appropriate storageClass.
+    # Persistence is disabled for testing.
     persistence:
-      enabled: false
+      enabled: true
       size: 10Gi
