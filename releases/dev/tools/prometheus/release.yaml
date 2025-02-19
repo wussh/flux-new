@@ -52,6 +52,7 @@ spec:
           memory: 1024Mi
       service:
         type: NodePort
+        nodePort: 30090
       # Use a PersistentVolume for storing Prometheus data.
       persistentVolume:
         enabled: true
