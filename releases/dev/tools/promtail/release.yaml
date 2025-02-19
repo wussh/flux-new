@@ -15,48 +15,13 @@ spec:
         namespace: flux-system
       version: "6.16.6"
   values:
-    daemonset:
-      enabled: true
-      autoscaling:
-        enabled: false
-    deployment:
-      enabled: false
     config:
-      enabled: true
-      expandEnv: true
-      file: |
-        server:
-          http_listen_port: 3101
-          log_level: info
-        clients:
-          - url: "http://loki-gateway.internal.svc.cluster.local/loki/api/v1/push"
-        positions:
-          filename: /run/promtail/positions.yaml
-        scrape_configs:
-          - job_name: system
-            static_configs:
-              - targets: [localhost]
-                labels:
-                  job: varlogs
-                  __path__: /var/log/*log
-          - job_name: kubernetes
-            kubernetes_sd_configs:
-              - role: pod
-            relabel_configs:
-              - source_labels: [__meta_kubernetes_pod_node_name]
-                target_label: node
-              - source_labels: [__meta_kubernetes_namespace]
-                target_label: namespace
-              - source_labels: [__meta_kubernetes_pod_name]
-                target_label: pod
-              - source_labels: [__meta_kubernetes_pod_container_name]
-                target_label: container
-      logLevel: "info"
-      serverPort: 3101
+      clients:
+        - url: http://loki-gateway.internal.svc.cluster.local/loki/api/v1/push
       snippets:
-        extraServerConfigs: ""
-        extraLimitsConfig: ""
-        extraRelabelConfigs: []
+        extraRelabelConfigs:
+          - action: labelmap
+            regex: __meta_kubernetes_pod_label_(.+)
     resources:
       requests:
         cpu: "100m"
@@ -64,21 +29,3 @@ spec:
       limits:
         cpu: "250m"
         memory: "256Mi"
-    containerSecurityContext:
-      allowPrivilegeEscalation: false
-      capabilities:
-        drop: ["ALL"]
-      readOnlyRootFilesystem: true
-    serviceAccount:
-      create: true
-      name: promtail
-    tolerations:
-      - key: "node-role.kubernetes.io/master"
-        operator: "Exists"
-        effect: "NoSchedule"
-    extraVolumes:
-      - name: promtail-data
-        emptyDir: {}
-    extraVolumeMounts:
-      - name: promtail-data
-        mountPath: /run/promtail
