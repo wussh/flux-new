@@ -31,6 +31,13 @@ spec:
           port: 80          # The service port exposed to clients
           targetPort: 8080  # The port on the container that Kestra listens on
           nodePort: 30080   # The fixed NodePort for external access
+    resources:
+      requests:
+        cpu: "250m"
+        memory: "256Mi"
+      limits:
+        cpu: "500m"
+        memory: "512Mi"
     postgresql:
       primary:
         persistence:
