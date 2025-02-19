@@ -45,4 +45,33 @@ spec:
           cpu: "1"
           memory: "2Gi"
       persistence:
+        enableStatefulSetAutoDeletePVC: true
+        enabled: true
         size: 10Gi
+    ingester:
+      persistence: 
+        enabled: true
+    querier:
+      persistence: 
+        enabled: true
+    indexGateway:
+      persistence: 
+        enabled: true
+    compactor:
+      persistence: 
+        enabled: true
+    bloomGateway:
+      persistence: 
+        enabled: true
+    patternIngester:
+      persistence: 
+        enabled: true
+    ruler:
+      persistence: 
+        enabled: true
+    resultsCache:
+      persistence: 
+        enabled: true
+    chunksCache:
+      persistence: 
+        enabled: true
