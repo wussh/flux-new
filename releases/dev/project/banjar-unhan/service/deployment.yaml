@@ -36,6 +36,7 @@ metadata:
     reloader.stakater.com/auto: "true"
   labels:
     app: bahan-ajar
+    logging: "loki" 
 spec:
   replicas: 1
   selector:
@@ -45,6 +46,11 @@ spec:
     metadata:
       labels:
         app: bahan-ajar
+        logging: "loki"
+      annotations:
+        loki.io/scrape: "true"
+        loki.io/path: "/var/log/pods/*"
+        loki.io/job: "bahan-ajar"
     spec:
       containers:
         - name: bahan-ajar
