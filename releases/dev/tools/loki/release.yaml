@@ -35,16 +35,16 @@ spec:
         max_concurrent: 4
     deploymentMode: SimpleScalable 
     gateway:
-      replicas: 2
+      replicas: 3
       affinity: {}
     backend:
-      replicas: 1
+      replicas: 3
       affinity: {}
     read:
-      replicas: 1
+      replicas: 3
       affinity: {}
     write:
-      replicas: 1
+      replicas: 3
       affinity: {}
     # Enable minio for storage
     minio:
