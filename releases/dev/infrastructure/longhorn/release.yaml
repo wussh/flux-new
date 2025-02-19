@@ -34,10 +34,3 @@ spec:
       storageMinimalAvailablePercentage: 5  # Prevent low-disk issues
       nodeDownPodDeletionPolicy: delete-both-statefulset-and-deployment-pod
       defaultDataPath: "/var/lib/longhorn"  # Store Longhorn volumes locally
-    resources:
-      requests:
-        cpu: "100m"
-        memory: "128Mi"
-      limits:
-        cpu: "500m"
-        memory: "512Mi"
