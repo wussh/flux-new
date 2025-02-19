@@ -16,6 +16,13 @@ spec:
       version: "6.27.0"
   values:
     deploymentMode: SingleBinary
+    loki:
+      storage:
+        type: filesystem
+        filesystem:
+          chunks_directory: /var/loki/chunks
+          rules_directory: /var/loki/rules
+          admin_api_directory: /var/loki/admin
     singleBinary:
       replicas: 1
       autoscaling:
@@ -32,4 +39,4 @@ spec:
           cpu: "1"
           memory: "2Gi"
       persistence:
-        size: 5Gi
+        size: 10Gi
