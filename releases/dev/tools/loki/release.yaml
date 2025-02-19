@@ -35,9 +35,9 @@ spec:
         max_concurrent: 1
 
     deploymentMode: SimpleScalable 
-    gateway:
-      replicas: 1
-      affinity: {}
+    # gateway:
+    #   replicas: 1
+    #   affinity: {}
     backend:
       replicas: 1
       affinity: {}
