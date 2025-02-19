@@ -83,5 +83,5 @@ spec:
           - name: Loki
             type: loki
             access: proxy
-            url: http://loki.internal.svc.cluster.local:3100
+            url: http://loki-read.internal.svc.cluster.local:3100
             editable: true
