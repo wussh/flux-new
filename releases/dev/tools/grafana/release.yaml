@@ -77,11 +77,11 @@ spec:
           - name: Prometheus
             type: prometheus
             access: proxy
-            url: http://prometheus-server.internal.svc.cluster.local:80
+            url: http://prometheus-server.internal.svc.cluster.local
             isDefault: true
             editable: true
           - name: Loki
             type: loki
             access: proxy
-            url: http://loki-gateway.internal.svc.cluster.local:3100
+            url: http://loki-gateway.internal.svc.cluster.local
             editable: true
