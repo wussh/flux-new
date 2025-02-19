@@ -30,5 +30,3 @@ spec:
       primary:
         persistence:
           size: 2Gi
-    minio:
-      enabled: false
