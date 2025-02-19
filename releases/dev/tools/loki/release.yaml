@@ -18,7 +18,9 @@ spec:
     global:
       imagePullSecrets: []
       clusterDomain: "cluster.local"
-
+    gateway:
+      service:
+        nodePort: 30060
     # Use SimpleScalable mode (three targets: write, read, backend)
     deploymentMode: SimpleScalable
 
@@ -74,12 +76,6 @@ spec:
 
     write:
       replicas: 3
-      # Expose the write service externally via NodePort
-      service:
-        type: NodePort
-        port: 3100         # Service port (Loki listens on 3100 inside the pod)
-        targetPort: 3100   # Container port
-        nodePort: 30060      # Port on each node for external access
       resources:
         requests:
           cpu: 200m
