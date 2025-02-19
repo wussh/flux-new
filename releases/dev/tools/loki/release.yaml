@@ -36,6 +36,7 @@ spec:
 
     deploymentMode: SingleBinary 
     gateway:
+      replicas: 1
       affinity: {}
     backend:
       replicas: 0
