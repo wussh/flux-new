@@ -35,6 +35,8 @@ spec:
         max_concurrent: 1
 
     deploymentMode: SingleBinary 
+    gateway:
+      affinity: {}
     backend:
       replicas: 0
     read:
@@ -47,6 +49,7 @@ spec:
     # Zero out replica counts of other deployment modes
     singleBinary:
       replicas: 1
+      affinity: {}
     ingester:
       replicas: 0
     querier:
