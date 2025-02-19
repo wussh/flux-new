@@ -16,12 +16,10 @@ spec:
       version: "6.27.0"
   values:
     global:
-      # No special image pull secrets needed for now.
       imagePullSecrets: []
-      # Use your cluster’s domain (default is usually "cluster.local")
       clusterDomain: "cluster.local"
 
-    # Use the simplest deployment mode suitable for testing/small installs.
+    # Use the simplest deployment mode for testing.
     deploymentMode: SingleBinary
 
     loki:
@@ -31,16 +29,17 @@ spec:
         tag: "3.4.2"
         pullPolicy: IfNotPresent
 
-      # Disable authentication for testing.
+      # Disable authentication for testing purposes.
       auth_enabled: false
 
-      # Configure the server port.
+      # Configure Loki to listen on port 3100.
       server:
         http_listen_port: 3100
 
-      # Minimal Loki configuration.
-      # This example uses the boltdb-shipper with filesystem storage,
-      # which is appropriate for non-production testing.
+      # For quick testing, enable the built-in test schema.
+      useTestSchema: true
+
+      # Minimal Loki configuration. (The test schema flag tells the chart to use a built-in test schema.)
       config: |
         auth_enabled: false
         server:
@@ -65,9 +64,7 @@ spec:
           filesystem:
             directory: /tmp/loki/chunks
 
-    # Persistence is disabled by default for testing.
-    # If you wish to store logs persistently (e.g. in production), set enabled to true
-    # and adjust the size and storageClass as needed.
+    # Persistence is disabled for quick testing.
     persistence:
       enabled: true
       size: 10Gi
