@@ -69,3 +69,17 @@ spec:
     # Ingress is disabled by default.
     ingress:
       enabled: false
+
+    datasources:
+      datasources.yaml:
+        apiVersion: 1
+        datasources:
+          - name: Prometheus
+            type: prometheus
+            access: proxy
+            # Update the URL below to match your Prometheus service address.
+            # For example, if you installed Prometheus with the Helm chart, it might be:
+            # url: http://prometheus-prometheus-server:80
+            url: http://prometheus-server.internal.svc.cluster.local:80
+            isDefault: true
+            editable: true
