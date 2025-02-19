@@ -32,8 +32,11 @@ spec:
         enabled: true
       querier:
         # Default is 4, if you have enough memory and CPU you can increase, reduce if OOMing
-        max_concurrent: 1
+        max_concurrent: 4
     deploymentMode: SimpleScalable 
+    gateway:
+      replicas: 2
+      affinity: {}
     backend:
       replicas: 1
       affinity: {}
