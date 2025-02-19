@@ -1,77 +1,77 @@
-apiVersion: helm.toolkit.fluxcd.io/v2
-kind: HelmRelease
-metadata:
-  name: loki
-  namespace: internal
-spec:
-  releaseName: loki
-  interval: 5m
-  chart:
-    spec:
-      chart: loki
-      sourceRef:
-        kind: HelmRepository
-        name: grafana
-        namespace: flux-system
-      version: "6.27.0"
-  values:
-    deploymentMode: SingleBinary
-    loki:
-      storage:
-        type: filesystem
-        filesystem:
-          chunks_directory: /var/loki/chunks
-          rules_directory: /var/loki/rules
-          admin_api_directory: /var/loki/admin
-    write:
-      replicas: 0
-    read:
-      replicas: 0
-    backend:
-      replicas: 0
-    singleBinary:
-      replicas: 1
-      autoscaling:
-        enabled: true
-        minReplicas: 1
-        maxReplicas: 3
-        targetCPUUtilizationPercentage: 60
-        targetMemoryUtilizationPercentage: 80
-      resources:
-        requests:
-          cpu: "500m"
-          memory: "1Gi"
-        limits:
-          cpu: "1"
-          memory: "2Gi"
-      persistence:
-        enableStatefulSetAutoDeletePVC: true
-        enabled: true
-        size: 10Gi
-    ingester:
-      persistence: 
-        enabled: true
-    querier:
-      persistence: 
-        enabled: true
-    indexGateway:
-      persistence: 
-        enabled: true
-    compactor:
-      persistence: 
-        enabled: true
-    bloomGateway:
-      persistence: 
-        enabled: true
-    patternIngester:
-      persistence: 
-        enabled: true
-    ruler:
-      persistence: 
-        enabled: true
-    resultsCache:
-      persistence: 
-        enabled: true
-    chunksCache:
-      persistence: 
-        enabled: true
+# apiVersion: helm.toolkit.fluxcd.io/v2
+# kind: HelmRelease
+# metadata:
+#   name: loki
+#   namespace: internal
+# spec:
+#   releaseName: loki
+#   interval: 5m
+#   chart:
+#     spec:
+#       chart: loki
+#       sourceRef:
+#         kind: HelmRepository
+#         name: grafana
+#         namespace: flux-system
+#       version: "6.27.0"
+#   values:
+#     deploymentMode: SingleBinary
+#     loki:
+#       storage:
+#         type: filesystem
+#         filesystem:
+#           chunks_directory: /var/loki/chunks
+#           rules_directory: /var/loki/rules
+#           admin_api_directory: /var/loki/admin
+#     write:
+#       replicas: 0
+#     read:
+#       replicas: 0
+#     backend:
+#       replicas: 0
+#     singleBinary:
+#       replicas: 1
+#       autoscaling:
+#         enabled: true
+#         minReplicas: 1
+#         maxReplicas: 3
+#         targetCPUUtilizationPercentage: 60
+#         targetMemoryUtilizationPercentage: 80
+#       resources:
+#         requests:
+#           cpu: "500m"
+#           memory: "1Gi"
+#         limits:
+#           cpu: "1"
+#           memory: "2Gi"
+#       persistence:
+#         enableStatefulSetAutoDeletePVC: true
+#         enabled: true
+#         size: 10Gi
+#     ingester:
+#       persistence: 
+#         enabled: true
+#     querier:
+#       persistence: 
+#         enabled: true
+#     indexGateway:
+#       persistence: 
+#         enabled: true
+#     compactor:
+#       persistence: 
+#         enabled: true
+#     bloomGateway:
+#       persistence: 
+#         enabled: true
+#     patternIngester:
+#       persistence: 
+#         enabled: true
+#     ruler:
+#       persistence: 
+#         enabled: true
+#     resultsCache:
+#       persistence: 
+#         enabled: true
+#     chunksCache:
+#       persistence: 
+#         enabled: true
