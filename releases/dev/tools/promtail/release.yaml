@@ -33,6 +33,12 @@ spec:
         extraRelabelConfigs:
           - action: labelmap
             regex: __meta_kubernetes_pod_label_(.+)
+    extraVolumes:
+      - name: positions
+        emptyDir: {}
+    extraVolumeMounts:
+      - name: positions
+        mountPath: /run/promtail
     # resources:
     #   requests:
     #     cpu: "100m"
