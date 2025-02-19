@@ -15,96 +15,21 @@ spec:
         namespace: flux-system
       version: "6.27.0"
   values:
-    global:
-      imagePullSecrets: []
-      clusterDomain: "cluster.local"
-    gateway:
-      service:
-        nodePort: 30060
-    # Use SimpleScalable mode (three targets: write, read, backend)
-    deploymentMode: SimpleScalable
-
-    loki:
-      image:
-        registry: docker.io
-        repository: grafana/loki
-        tag: "3.4.2"
-        pullPolicy: IfNotPresent
-
-      # Disable authentication for testing (enable in production)
-      auth_enabled: false
-
-      server:
-        http_listen_port: 3100
-
-      # Enable the built-in test schema for quick testing (do not use in production)
-      useTestSchema: false
-      testSchemaConfig:
-        configs:
-          - from: 2024-04-01
-            store: tsdb
-            object_store: filesystem
-            schema: v13
-            index:
-              prefix: index_
-              period: 24h
-
-      # Configure storage using a filesystem backend for testing
-      storage_config:
-        boltdb_shipper:
-          active_index_directory: /data/index
-          cache_location: /data/cache
-          shared_store: filesystem
-        filesystem:
-          directory: /data/chunks
-
-      # Add dummy bucketNames to satisfy the helper template
-      storage:
-        bucketNames:
-          chunks: "loki-chunks"
-          ruler: "loki-ruler"
-          admin: "loki-admin"
-
-      # Global resource requests and limits (applies to components without their own overrides)
+    deploymentMode: SingleBinary
+    singleBinary:
+      replicas: 1
+      autoscaling:
+        enabled: true
+        minReplicas: 1
+        maxReplicas: 3
+        targetCPUUtilizationPercentage: 60
+        targetMemoryUtilizationPercentage: 80
       resources:
         requests:
-          cpu: 200m
-          memory: 512Mi
+          cpu: "500m"
+          memory: "1Gi"
         limits:
-          cpu: 400m
-          memory: 1Gi
-
-    write:
-      replicas: 3
-      resources:
-        requests:
-          cpu: 200m
-          memory: 512Mi
-        limits:
-          cpu: 400m
-          memory: 1Gi
-
-    read:
-      replicas: 3
-      resources:
-        requests:
-          cpu: 200m
-          memory: 512Mi
-        limits:
-          cpu: 400m
-          memory: 1Gi
-
-    backend:
-      replicas: 3
-      resources:
-        requests:
-          cpu: 200m
-          memory: 512Mi
-        limits:
-          cpu: 400m
-          memory: 1Gi
-
-    # Persistence is disabled for testing.
-    persistence:
-      enabled: true
-      size: 10Gi
+          cpu: "1"
+          memory: "2Gi"
+      persistence:
+        size: 5Gi
