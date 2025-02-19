@@ -1,0 +1,78 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: loki
+  namespace: internal
+spec:
+  releaseName: loki
+  interval: 5m
+  chart:
+    spec:
+      chart: loki
+      sourceRef:
+        kind: HelmRepository
+        name: grafana
+        namespace: flux-system
+      version: "8.10.0"
+  values:
+    global:
+      # No special image pull secrets needed for now.
+      imagePullSecrets: []
+      # Use your cluster’s domain (default is usually "cluster.local")
+      clusterDomain: "cluster.local"
+
+    # Use the simplest deployment mode suitable for testing/small installs.
+    deploymentMode: SingleBinary
+
+    loki:
+      image:
+        registry: docker.io
+        repository: grafana/loki
+        tag: "3.4.2"
+        pullPolicy: IfNotPresent
+
+      # Disable authentication for testing.
+      auth_enabled: false
+
+      # Configure the server port.
+      server:
+        http_listen_port: 3100
+
+      # Minimal Loki configuration.
+      # This example uses the boltdb-shipper with filesystem storage,
+      # which is appropriate for non-production testing.
+      config: |
+        auth_enabled: false
+        server:
+          http_listen_port: 3100
+        ingester:
+          wal:
+            enabled: true
+        schema_config:
+          configs:
+            - from: 2020-10-24
+              store: boltdb-shipper
+              object_store: filesystem
+              schema: v11
+              index:
+                prefix: index_
+                period: 24h
+        storage_config:
+          boltdb_shipper:
+            active_index_directory: /tmp/loki/index
+            cache_location: /tmp/loki/cache
+            shared_store: filesystem
+          filesystem:
+            directory: /tmp/loki/chunks
+
+    # Persistence is disabled by default for testing.
+    # If you wish to store logs persistently (e.g. in production), set enabled to true
+    # and adjust the size and storageClass as needed.
+    persistence:
+      enabled: true
+      size: 10Gi
+    service:
+      type: NodePort
+      port: 3100         # The port the Service will expose
+      targetPort: 3100   # The port Loki listens on within the pod
+      nodePort: 30060    # The port on each Node to route traffic to Loki

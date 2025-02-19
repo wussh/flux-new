@@ -83,3 +83,10 @@ spec:
             url: http://prometheus-server.internal.svc.cluster.local:80
             isDefault: true
             editable: true
+          - name: Loki
+            type: loki
+            access: proxy
+            # Example internal DNS for Loki (assuming it's deployed in the same "internal" namespace).
+            # Adjust the service name and port as needed.
+            url: http://loki.internal.svc.cluster.local:3100
+            editable: true
