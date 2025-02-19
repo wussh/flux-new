@@ -77,16 +77,11 @@ spec:
           - name: Prometheus
             type: prometheus
             access: proxy
-            # Update the URL below to match your Prometheus service address.
-            # For example, if you installed Prometheus with the Helm chart, it might be:
-            # url: http://prometheus-prometheus-server:80
             url: http://prometheus-server.internal.svc.cluster.local:80
             isDefault: true
             editable: true
-          # - name: Loki
-          #   type: loki
-          #   access: proxy
-          #   # Example internal DNS for Loki (assuming it's deployed in the same "internal" namespace).
-          #   # Adjust the service name and port as needed.
-          #   url: http://loki.internal.svc.cluster.local:3100
-          #   editable: true
+          - name: Loki
+            type: loki
+            access: proxy
+            url: http://loki.internal.svc.cluster.local:3100
+            editable: true
