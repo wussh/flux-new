@@ -24,6 +24,8 @@ spec:
         namespace: flux-system
       version: "1.0.59"
   values:
+    persistence:
+      storageClass: longhorn
     enterpriseEdition:
       enabled: true
     service:
