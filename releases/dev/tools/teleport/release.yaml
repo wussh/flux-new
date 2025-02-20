@@ -23,21 +23,18 @@ spec:
       teleport.internal/resource-id: "9bc54e00-fe9d-4d4a-a7fe-4299b39b6efb"
 ---
 kind: role
+version: v6
 metadata:
   name: wush
 spec:
   allow:
-    kubernetes_groups: ["system:masters"]
+    kubernetes_groups:
+      - system:masters
     kubernetes_labels:
       "*": "*"
     kubernetes_resources:
-      - kind: pod
+      - kind: "*"
         namespace: "*"
         name: "*"
-        verbs: ["get", "list", "watch"]
-      - kind: service
-        namespace: "*"
-        name: "*"
-        verbs: ["get", "list"]
+        verbs: ["*"]
   deny: {}
-version: v4
