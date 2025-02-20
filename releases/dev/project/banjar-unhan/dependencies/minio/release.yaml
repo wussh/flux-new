@@ -12,19 +12,21 @@ spec:
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: minio-banjar-unhan-3
+  name: minio-banjar-unhan
   namespace: banjar-unhan
 spec:
-  releaseName: minio-banjar-unhan-3
+  releaseName: minio-banjar-unhan
   interval: 5m
   chartRef:
     kind: OCIRepository
     name: minio
     namespace: flux-system
   values:
+    global:
+      storageClass: "local-path"
     mode: distributed
     statefulset:
-      replicaCount: 2
+      replicaCount: 4
     auth:
       rootUser: admin
       rootPassword: falah0918
