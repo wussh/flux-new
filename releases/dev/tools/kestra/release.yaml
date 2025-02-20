@@ -1,44 +1,44 @@
-# apiVersion: source.toolkit.fluxcd.io/v1
-# kind: HelmRepository
-# metadata:
-#   name: kestra
-#   namespace: flux-system
-# spec:
-#   interval: 10m
-#   url: https://helm.kestra.io
-# ---
-# apiVersion: helm.toolkit.fluxcd.io/v2
-# kind: HelmRelease
-# metadata:
-#   name: kestra
-#   namespace: internal
-# spec:
-#   releaseName: kestra
-#   interval: 5m
-#   chart:
-#     spec:
-#       chart: kestra
-#       sourceRef:
-#         kind: HelmRepository
-#         name: kestra
-#         namespace: flux-system
-#       version: "0.21.3"
-#   values:
-#     service:
-#       type: NodePort
-#       ports:
-#         - name: http
-#           port: 80          # The service port exposed to clients
-#           targetPort: 8080  # The port on the container that Kestra listens on
-#           nodePort: 30080   # The fixed NodePort for external access
-#     resources:
-#       requests:
-#         cpu: "250m"
-#         memory: "256Mi"
-#       limits:
-#         cpu: "500m"
-#         memory: "756Mi"
-#     postgresql:
-#       primary:
-#         persistence:
-#           size: 2Gi
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: kestra
+  namespace: flux-system
+spec:
+  interval: 10m
+  url: https://helm.kestra.io
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: kestra
+  namespace: internal
+spec:
+  releaseName: kestra
+  interval: 5m
+  chart:
+    spec:
+      chart: kestra
+      sourceRef:
+        kind: HelmRepository
+        name: kestra
+        namespace: flux-system
+      version: "0.21.3"
+  values:
+    service:
+      type: NodePort
+      ports:
+        - name: http
+          port: 80          # The service port exposed to clients
+          targetPort: 8080  # The port on the container that Kestra listens on
+          nodePort: 30080   # The fixed NodePort for external access
+    resources:
+      requests:
+        cpu: "250m"
+        memory: "256Mi"
+      limits:
+        cpu: "500m"
+        memory: "756Mi"
+    postgresql:
+      primary:
+        persistence:
+          size: 2Gi
