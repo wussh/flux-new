@@ -22,19 +22,15 @@ spec:
     labels:
       teleport.internal/resource-id: "9bc54e00-fe9d-4d4a-a7fe-4299b39b6efb"
 ---
-kind: role
-version: v6
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
 metadata:
-  name: wush
-spec:
-  allow:
-    kubernetes_groups:
-      - system:masters
-    kubernetes_labels:
-      "*": "*"
-    kubernetes_resources:
-      - kind: "*"
-        namespace: "*"
-        name: "*"
-        verbs: ["*"]
-  deny: {}
+  name: teleport-admin-binding
+subjects:
+  - kind: User
+    name: wush
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: cluster-admin
+  apiGroup: rbac.authorization.k8s.io
