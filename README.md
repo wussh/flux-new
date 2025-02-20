@@ -101,3 +101,80 @@ To set up the environment, follow these steps:
 **Note:** Ensure that your GitHub repository is accessible and contains the necessary configurations as outlined in the repository structure above.
 
 By following this structure and initialization process, you can maintain a clear and efficient GitOps workflow using FluxCD. 
+
+# Troubleshooting Multipath Issues and Disabling Multipath
+
+This guide explains how to configure passwordless execution for stopping the multipath daemon and how to disable multipath. This is particularly useful when troubleshooting issues such as Longhorn volume conflicts.
+
+## Prerequisites
+
+- A Linux system using `systemctl` (e.g., Ubuntu, CentOS)
+- Sudo privileges for the user (in this example, `srv-harbor`)
+- Basic familiarity with editing system files
+
+## Steps
+
+### 1. Configure Passwordless Sudo for Multipath Commands
+
+When running `systemctl` commands, you may be prompted for a password. To bypass this for the multipath daemon, add a passwordless sudo rule.
+
+1. Open the sudoers file using `visudo` (this prevents syntax errors):
+   ```bash
+   sudo visudo
+   ```
+
+2. Add the following line at the end of the file (adjust the path if necessary):
+   ```plaintext
+   srv-harbor ALL=(ALL) NOPASSWD: /bin/systemctl stop multipathd.service
+   ```
+   This line allows the user `srv-harbor` to execute `systemctl stop multipathd.service` without being prompted for a password.
+
+### 2. Stop and Disable the Multipath Daemon
+
+Now that passwordless execution is set up for stopping the service, disable multipath:
+
+1. **Stop the multipath daemon:**
+   ```bash
+   sudo systemctl stop multipathd.service
+   ```
+
+2. **Disable the multipath daemon** to prevent it from starting automatically on boot:
+   ```bash
+   sudo systemctl disable multipathd.service
+   ```
+
+3. **Verify the service status** to ensure it is inactive:
+   ```bash
+   sudo systemctl status multipathd.service
+   ```
+   The status should indicate that the service is stopped and disabled.
+
+### 3. (Optional) Uninstall Multipath Tools
+
+If multipath is not required at all, you can remove it entirely. On Ubuntu/Debian systems, for example:
+```bash
+sudo apt-get remove multipath-tools
+```
+> **Note:** Make sure no other critical services depend on multipath before uninstalling.
+
+## Additional Tips
+
+- **Re-enabling Multipath:**  
+  If you ever need to re-enable multipath, run:
+  ```bash
+  sudo systemctl enable multipathd.service
+  sudo systemctl start multipathd.service
+  ```
+
+- **Review Logs:**  
+  To troubleshoot further, review multipath logs:
+  ```bash
+  journalctl -u multipathd.service
+  ```
+
+- **Testing Changes:**  
+  Always test configuration changes in a safe environment before applying them to production.
+
+---
+
+This README should serve as a comprehensive guide for bypassing authentication for specific commands and disabling multipath, which can help resolve conflicts with Longhorn or other storage systems.
