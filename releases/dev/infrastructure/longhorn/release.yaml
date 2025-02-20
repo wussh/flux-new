@@ -24,13 +24,6 @@ spec:
       version: "1.8.0"
   values:
     persistence:
-      defaultClass: true   # Set Longhorn as default StorageClass
+      defaultClass: true
       # reclaimPolicy: Retain # Keep volumes even if PVC is deleted
       allowVolumeExpansion: true
-    defaultSettings:
-      defaultReplicaCount: 1
-      backupTarget: ""
-      storageOverProvisioningPercentage: 200 # Optimize storage use
-      storageMinimalAvailablePercentage: 5  # Prevent low-disk issues
-      nodeDownPodDeletionPolicy: delete-both-statefulset-and-deployment-pod
-      defaultDataPath: "/var/lib/longhorn"  # Store Longhorn volumes locally
