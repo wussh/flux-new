@@ -42,3 +42,9 @@ spec:
             s3Url: http://10.70.0.32:9008
     useVolumeSnapshots: false
     cleanUpCRDs: true
+    initContainers:
+      - name: velero-plugin-for-aws
+        image: velero/velero-plugin-for-aws:v1.2.1
+        volumeMounts:
+          - mountPath: /target
+            name: plugins
