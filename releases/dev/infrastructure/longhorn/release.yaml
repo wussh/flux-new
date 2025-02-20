@@ -1,28 +1,28 @@
-# apiVersion: source.toolkit.fluxcd.io/v1
-# kind: HelmRepository
-# metadata:
-#   name: longhorn
-#   namespace: flux-system
-# spec:
-#   interval: 10m
-#   url: https://charts.longhorn.io
-# ---
-# apiVersion: helm.toolkit.fluxcd.io/v2
-# kind: HelmRelease
-# metadata:
-#   name: longhorn
-#   namespace: internal
-# spec:
-#   interval: 5m
-#   chart:
-#     spec:
-#       chart: longhorn
-#       sourceRef:
-#         kind: HelmRepository
-#         name: longhorn
-#         namespace: flux-system
-#       version: "1.8.0"
-#   values:
-#     persistence:
-#       defaultClass: true
-#       allowVolumeExpansion: true
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: longhorn
+  namespace: flux-system
+spec:
+  interval: 10m
+  url: https://charts.longhorn.io
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: longhorn
+  namespace: internal
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: longhorn
+      sourceRef:
+        kind: HelmRepository
+        name: longhorn
+        namespace: flux-system
+      version: "1.8.0"
+  values:
+    persistence:
+      defaultClass: true
+      allowVolumeExpansion: true
