@@ -1,32 +1,32 @@
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: netbird
-  namespace: default
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: netbird
-  template:
-    metadata:
-      labels:
-        app: netbird
-    spec:
-      containers:
-        - name: netbird
-          image: netbirdio/netbird:latest
-          env:
-            - name: NB_SETUP_KEY
-              value: "324EA48B-132F-4E5A-9B31-A6B163271567"
-            - name: NB_HOSTNAME
-              value: "netbird-k8s-router-45"
-            - name: NB_LOG_LEVEL
-              value: "info"
-          securityContext:
-            capabilities:
-              add:
-                - NET_ADMIN
-                - SYS_RESOURCE
-                - SYS_ADMIN
+# ---
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: netbird
+#   namespace: default
+# spec:
+#   replicas: 1
+#   selector:
+#     matchLabels:
+#       app: netbird
+#   template:
+#     metadata:
+#       labels:
+#         app: netbird
+#     spec:
+#       containers:
+#         - name: netbird
+#           image: netbirdio/netbird:latest
+#           env:
+#             - name: NB_SETUP_KEY
+#               value: "324EA48B-132F-4E5A-9B31-A6B163271567"
+#             - name: NB_HOSTNAME
+#               value: "netbird-k8s-router-45"
+#             - name: NB_LOG_LEVEL
+#               value: "info"
+#           securityContext:
+#             capabilities:
+#               add:
+#                 - NET_ADMIN
+#                 - SYS_RESOURCE
+#                 - SYS_ADMIN
