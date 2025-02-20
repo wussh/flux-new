@@ -1,4 +1,4 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: internal
+  name: internalkubectl patch namespace internal --type=json -p='[{"op": "remove", "path": "/spec/finalizers"}]'
