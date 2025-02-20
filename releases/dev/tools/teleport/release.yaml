@@ -1,36 +1,36 @@
-apiVersion: helm.toolkit.fluxcd.io/v2
-kind: HelmRelease
-metadata:
-  name: teleport-agent
-  namespace: internal
-spec:
-  releaseName: teleport-agent
-  interval: 5m
-  chart:
-    spec:
-      chart: teleport-kube-agent
-      sourceRef:
-        kind: HelmRepository
-        name: teleport
-        namespace: flux-system
-      version: "16.4.12"
-  values:
-    roles: "kube,app,discovery"
-    authToken: "bd51a8cdd1a30cffd33803e4203a8b14"
-    proxyAddr: "teleport.wush.site:443"
-    kubeClusterName: "10.70.0.45"
-    labels:
-      teleport.internal/resource-id: "9bc54e00-fe9d-4d4a-a7fe-4299b39b6efb"
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
-metadata:
-  name: teleport-admin-binding
-subjects:
-  - kind: User
-    name: wush
-    apiGroup: rbac.authorization.k8s.io
-roleRef:
-  kind: ClusterRole
-  name: cluster-admin
-  apiGroup: rbac.authorization.k8s.io
+# apiVersion: helm.toolkit.fluxcd.io/v2
+# kind: HelmRelease
+# metadata:
+#   name: teleport-agent
+#   namespace: internal
+# spec:
+#   releaseName: teleport-agent
+#   interval: 5m
+#   chart:
+#     spec:
+#       chart: teleport-kube-agent
+#       sourceRef:
+#         kind: HelmRepository
+#         name: teleport
+#         namespace: flux-system
+#       version: "16.4.12"
+#   values:
+#     roles: "kube,app,discovery"
+#     authToken: "bd51a8cdd1a30cffd33803e4203a8b14"
+#     proxyAddr: "teleport.wush.site:443"
+#     kubeClusterName: "10.70.0.45"
+#     labels:
+#       teleport.internal/resource-id: "9bc54e00-fe9d-4d4a-a7fe-4299b39b6efb"
+# ---
+# apiVersion: rbac.authorization.k8s.io/v1
+# kind: ClusterRoleBinding
+# metadata:
+#   name: teleport-admin-binding
+# subjects:
+#   - kind: User
+#     name: wush
+#     apiGroup: rbac.authorization.k8s.io
+# roleRef:
+#   kind: ClusterRole
+#   name: cluster-admin
+#   apiGroup: rbac.authorization.k8s.io
