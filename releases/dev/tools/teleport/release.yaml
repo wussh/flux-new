@@ -1,12 +1,3 @@
-apiVersion: source.toolkit.fluxcd.io/v1beta2
-kind: HelmRepository
-metadata:
-  name: teleport
-  namespace: flux-system
-spec:
-  interval: 10m
-  url: https://charts.releases.teleport.dev
----
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
@@ -24,7 +15,7 @@ spec:
         namespace: flux-system
       version: "16.4.12"
   values:
-    roles: ["kube", "app", "discovery"]
+    roles: "kube,app,discovery"
     authToken: "bd51a8cdd1a30cffd33803e4203a8b14"
     proxyAddr: "teleport.wush.site:443"
     kubeClusterName: "10.70.0.45"
