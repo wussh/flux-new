@@ -40,7 +40,6 @@ spec:
             region: minio
             s3ForcePathStyle: "true"
             s3Url: http://10.70.0.32:9008
-      volumeSnapshotLocations: []
     useVolumeSnapshots: false
     cleanUpCRDs: true
     initContainers:
