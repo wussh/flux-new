@@ -31,7 +31,7 @@ spec:
       tracing:
         enabled: true
       querier:
-        max_concurrent: 4
+        max_concurrent: 2
     deploymentMode: SimpleScalable 
     gateway:
       replicas: 10
