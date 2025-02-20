@@ -1,50 +1,50 @@
----
-apiVersion: source.toolkit.fluxcd.io/v1
-kind: HelmRepository
-metadata:
-  name: vmware-tanzu
-  namespace: flux-system
-spec:
-  interval: 1m0s
-  url: https://vmware-tanzu.github.io/helm-charts/
----
-apiVersion: helm.toolkit.fluxcd.io/v2
-kind: HelmRelease
-metadata:
-  name: velero
-  namespace: internal
-spec:
-  interval: 5m0s
-  releaseName: velero
-  chart:
-    spec:
-      chart: velero
-      version: "8.4.0"
-      sourceRef:
-        kind: HelmRepository
-        name: vmware-tanzu
-        namespace: flux-system
-  values:
-    credentials:
-      secretContents:
-        cloud: |
-          [default]
-          aws_access_key_id = admin
-          aws_secret_access_key = F!tech0918PRGM
-    configuration:
-      backupStorageLocation:
-        - name: pvc
-          provider: aws
-          bucket: pvc
-          config:
-            region: minio
-            s3ForcePathStyle: "true"
-            s3Url: http://10.70.0.32:9008
-      volumeSnapshotLocations: []
-    useVolumeSnapshots: false
-    initContainers:
-      - name: velero-plugin-for-aws
-        image: velero/velero-plugin-for-aws:v1.2.1
-        volumeMounts:
-          - mountPath: /target
-            name: plugins
+# ---
+# apiVersion: source.toolkit.fluxcd.io/v1
+# kind: HelmRepository
+# metadata:
+#   name: vmware-tanzu
+#   namespace: flux-system
+# spec:
+#   interval: 1m0s
+#   url: https://vmware-tanzu.github.io/helm-charts/
+# ---
+# apiVersion: helm.toolkit.fluxcd.io/v2
+# kind: HelmRelease
+# metadata:
+#   name: velero
+#   namespace: internal
+# spec:
+#   interval: 5m0s
+#   releaseName: velero
+#   chart:
+#     spec:
+#       chart: velero
+#       version: "8.4.0"
+#       sourceRef:
+#         kind: HelmRepository
+#         name: vmware-tanzu
+#         namespace: flux-system
+#   values:
+#     credentials:
+#       secretContents:
+#         cloud: |
+#           [default]
+#           aws_access_key_id = admin
+#           aws_secret_access_key = F!tech0918PRGM
+#     configuration:
+#       backupStorageLocation:
+#         - name: pvc
+#           provider: aws
+#           bucket: pvc
+#           config:
+#             region: minio
+#             s3ForcePathStyle: "true"
+#             s3Url: http://10.70.0.32:9008
+#       volumeSnapshotLocations: []
+#     useVolumeSnapshots: false
+#     initContainers:
+#       - name: velero-plugin-for-aws
+#         image: velero/velero-plugin-for-aws:v1.2.1
+#         volumeMounts:
+#           - mountPath: /target
+#             name: plugins
