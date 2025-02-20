@@ -12,10 +12,10 @@ spec:
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: minio-banjar-unhan-1
+  name: minio-banjar-unhan
   namespace: banjar-unhan
 spec:
-  releaseName: minio-banjar-unhan-1
+  releaseName: minio-banjar-unhan
   interval: 5m
   chartRef:
     kind: OCIRepository
