@@ -26,3 +26,8 @@ spec:
     persistence:
       defaultClass: true
       allowVolumeExpansion: true
+    defaultSettings:
+      storageOverProvisioningPercentage: 200
+      storageMinimalAvailablePercentage: 5
+      nodeDownPodDeletionPolicy: delete-both-statefulset-and-deployment-pod
+      defaultDataPath: "/home/sd/longhorn"
