@@ -58,7 +58,18 @@ spec:
         name: cpu
         target:
           type: Utilization
-          averageUtilization: 90
+          averageUtilization: 95
   behavior:
     scaleDown:
       stabilizationWindowSeconds: 180
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: bahan-ajar-pdb
+  namespace: banjar-unhan
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: bahan-ajar
