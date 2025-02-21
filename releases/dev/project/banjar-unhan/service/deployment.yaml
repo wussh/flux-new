@@ -34,11 +34,11 @@ spec:
                 name: bahan-ajar-config
           resources:
             requests:
-              cpu: "100m"
-              memory: "256Mi"
+              cpu: "250m"
+              memory: "350Mi"
             limits:
-              cpu: "200m"
-              memory: "512Mi"
+              cpu: "500m"
+              memory: "700Mi"
 ---
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
@@ -50,7 +50,7 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: bahan-ajar-deployment
-  minReplicas: 2
+  minReplicas: 1
   maxReplicas: 10
   metrics:
     - type: Resource
@@ -58,10 +58,13 @@ spec:
         name: cpu
         target:
           type: Utilization
-          averageUtilization: 80
-    - type: Resource
-      resource:
-        name: memory
-        target:
-          type: Utilization
-          averageUtilization: 90
+          averageUtilization: 70
+    # - type: Resource
+    #   resource:
+    #     name: memory
+    #     target:
+    #       type: Utilization
+    #       averageUtilization: 90
+  behavior:
+    scaleDown:
+      stabilizationWindowSeconds: 180
