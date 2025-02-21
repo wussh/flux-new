@@ -37,7 +37,7 @@ spec:
               cpu: "100m"
               memory: "256Mi"
             limits:
-              cpu: "500m"
+              cpu: "200m"
               memory: "512Mi"
 ---
 apiVersion: autoscaling/v2
@@ -51,7 +51,7 @@ spec:
     kind: Deployment
     name: bahan-ajar-deployment
   minReplicas: 2
-  maxReplicas: 5
+  maxReplicas: 10
   metrics:
     - type: Resource
       resource:
