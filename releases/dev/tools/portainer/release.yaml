@@ -27,7 +27,7 @@ spec:
     persistence:
       storageClass: longhorn
     enterpriseEdition:
-      enabled: true
+      enabled: false
     service:
       type: NodePort
       httpPort: 9000
