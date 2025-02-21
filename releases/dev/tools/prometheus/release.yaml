@@ -56,6 +56,7 @@ spec:
               static_configs:
                 - targets:
                   - '10.70.0.32:9100'
+                  - '10.70.0.28:9100'
     alertmanager:
       enabled: true
       persistence:
