@@ -1,65 +1,65 @@
-# apiVersion: source.toolkit.fluxcd.io/v1
-# kind: HelmRepository
-# metadata:
-#   name: prometheus
-#   namespace: flux-system
-# spec:
-#   interval: 10m
-#   url: https://prometheus-community.github.io/helm-charts
-# ---
-# apiVersion: helm.toolkit.fluxcd.io/v2
-# kind: HelmRelease
-# metadata:
-#   name: prometheus
-#   namespace: internal
-# spec:
-#   releaseName: prometheus
-#   interval: 5m
-#   chart:
-#     spec:
-#       chart: prometheus
-#       sourceRef:
-#         kind: HelmRepository
-#         name: prometheus
-#         namespace: flux-system
-#       version: "27.3.1"
-#   values:
-#     rbac:
-#       create: true
-#     serviceAccounts:
-#       server:
-#         create: true
-#     server:
-#       replicaCount: 1
-#       retention: "15d"
-#       resources:
-#         requests:
-#           cpu: 250m
-#           memory: 512Mi
-#         limits:
-#           cpu: 500m
-#           memory: 1024Mi
-#       service:
-#         type: NodePort
-#         nodePort: 30090
-#       persistentVolume:
-#         enabled: true
-#         size: 8Gi
-#         accessModes:
-#           - ReadWriteOnce
-#       extraFlags:
-#         - web.enable-lifecycle
-#     alertmanager:
-#       enabled: true
-#       persistence:
-#         enabled: true
-#         size: 2Gi
-#     kube-state-metrics:
-#       enabled: true
-#     prometheus-node-exporter:
-#       enabled: true
-#     prometheus-pushgateway:
-#       enabled: false
-#     extraScrapeConfigs: "- job_name: 'vm-staging'\n  static_configs:\n    - targets:\n      - \"10.70.0.32:9100\"\n      - \"10.70.0.28:9100\"\n"
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: prometheus
+  namespace: flux-system
+spec:
+  interval: 10m
+  url: https://prometheus-community.github.io/helm-charts
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: prometheus
+  namespace: internal
+spec:
+  releaseName: prometheus
+  interval: 5m
+  chart:
+    spec:
+      chart: prometheus
+      sourceRef:
+        kind: HelmRepository
+        name: prometheus
+        namespace: flux-system
+      version: "27.3.1"
+  values:
+    rbac:
+      create: true
+    serviceAccounts:
+      server:
+        create: true
+    server:
+      replicaCount: 1
+      retention: "15d"
+      resources:
+        requests:
+          cpu: 250m
+          memory: 512Mi
+        limits:
+          cpu: 500m
+          memory: 1024Mi
+      service:
+        type: NodePort
+        nodePort: 30090
+      persistentVolume:
+        enabled: true
+        size: 8Gi
+        accessModes:
+          - ReadWriteOnce
+      extraFlags:
+        - web.enable-lifecycle
+    alertmanager:
+      enabled: true
+      persistence:
+        enabled: true
+        size: 2Gi
+    kube-state-metrics:
+      enabled: true
+    prometheus-node-exporter:
+      enabled: true
+    prometheus-pushgateway:
+      enabled: false
+    extraScrapeConfigs: "- job_name: 'vm-staging'\n  static_configs:\n    - targets:\n      - \"10.70.0.32:9100\"\n      - \"10.70.0.28:9100\"\n"
 
 
