@@ -1,84 +1,84 @@
-# apiVersion: source.toolkit.fluxcd.io/v1
-# kind: HelmRepository
-# metadata:
-#   name: prometheus
-#   namespace: flux-system
-# spec:
-#   interval: 10m
-#   url: https://prometheus-community.github.io/helm-charts
-# ---
-# apiVersion: helm.toolkit.fluxcd.io/v2
-# kind: HelmRelease
-# metadata:
-#   name: prometheus
-#   namespace: internal
-# spec:
-#   releaseName: prometheus
-#   interval: 5m
-#   chart:
-#     spec:
-#       chart: prometheus
-#       sourceRef:
-#         kind: HelmRepository
-#         name: prometheus
-#         namespace: flux-system
-#       version: "27.3.1"
-#   values:
-#     # Recommended values for a beginner using the Prometheus Helm chart
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: prometheus
+  namespace: flux-system
+spec:
+  interval: 10m
+  url: https://prometheus-community.github.io/helm-charts
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: prometheus
+  namespace: internal
+spec:
+  releaseName: prometheus
+  interval: 5m
+  chart:
+    spec:
+      chart: prometheus
+      sourceRef:
+        kind: HelmRepository
+        name: prometheus
+        namespace: flux-system
+      version: "27.3.1"
+  values:
+    # Recommended values for a beginner using the Prometheus Helm chart
 
-#     # Enable RBAC so that Prometheus has the necessary permissions.
-#     rbac:
-#       create: true
+    # Enable RBAC so that Prometheus has the necessary permissions.
+    rbac:
+      create: true
 
-#     # Use a dedicated service account for the Prometheus server.
-#     serviceAccounts:
-#       server:
-#         create: true
+    # Use a dedicated service account for the Prometheus server.
+    serviceAccounts:
+      server:
+        create: true
 
-#     server:
-#       # Run a single instance of Prometheus.
-#       replicaCount: 1
+    server:
+      # Run a single instance of Prometheus.
+      replicaCount: 1
     
-#       # Data retention period. "15d" means 15 days.
-#       retention: "15d"
+      # Data retention period. "15d" means 15 days.
+      retention: "15d"
       
-#       # Resource requests and limits. Adjust these based on your cluster capacity.
-#       resources:
-#         requests:
-#           cpu: 250m
-#           memory: 512Mi
-#         limits:
-#           cpu: 500m
-#           memory: 1024Mi
-#       service:
-#         type: NodePort
-#         nodePort: 30090
-#       # Use a PersistentVolume for storing Prometheus data.
-#       persistentVolume:
-#         enabled: true
-#         size: 8Gi
-#         accessModes:
-#           - ReadWriteOnce
+      # Resource requests and limits. Adjust these based on your cluster capacity.
+      resources:
+        requests:
+          cpu: 250m
+          memory: 512Mi
+        limits:
+          cpu: 500m
+          memory: 1024Mi
+      service:
+        type: NodePort
+        nodePort: 30090
+      # Use a PersistentVolume for storing Prometheus data.
+      persistentVolume:
+        enabled: true
+        size: 8Gi
+        accessModes:
+          - ReadWriteOnce
 
-#       # Optional: Additional flags for the Prometheus server.
-#       extraFlags:
-#         - web.enable-lifecycle
+      # Optional: Additional flags for the Prometheus server.
+      extraFlags:
+        - web.enable-lifecycle
 
-#     alertmanager:
-#       # Install Alertmanager to handle alerts.
-#       enabled: true
-#       persistence:
-#         enabled: true
-#         size: 2Gi
+    alertmanager:
+      # Install Alertmanager to handle alerts.
+      enabled: true
+      persistence:
+        enabled: true
+        size: 2Gi
 
-#     # Install kube-state-metrics to expose Kubernetes cluster metrics.
-#     kube-state-metrics:
-#       enabled: true
+    # Install kube-state-metrics to expose Kubernetes cluster metrics.
+    kube-state-metrics:
+      enabled: true
 
-#     # Install node-exporter to monitor node-level metrics.
-#     prometheus-node-exporter:
-#       enabled: true
+    # Install node-exporter to monitor node-level metrics.
+    prometheus-node-exporter:
+      enabled: true
 
-#     # Pushgateway is often used for short-lived jobs. Disable it if you don't need it.
-#     prometheus-pushgateway:
-#       enabled: false
+    # Pushgateway is often used for short-lived jobs. Disable it if you don't need it.
+    prometheus-pushgateway:
+      enabled: false

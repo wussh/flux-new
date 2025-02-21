@@ -1,32 +1,3 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: bahan-ajar-config
-  namespace: banjar-unhan
-  annotations:
-    reloader.stakater.com/auto: "true"
-data:
-  HOST: "0.0.0.0"
-  PORT: "1339"
-  PUBLIC_URL: "http://127.0.0.1:1339"
-  APP_KEYS: "0i1NSDM1o9J/b0hOXOchYg==,gpZ55FdO4pdWkAvfDJ04Yw==,cqWPiO5klSLPNg4ePmTTPg==,FMSYMZKHHkDmF3YAUTO6xA=="
-  API_TOKEN_SALT: "qcju4lksJ02ptWJfZbX5Aw=="
-  ADMIN_JWT_SECRET: "Xn0QyzF+ZAuTw9qULoQWYw=="
-  TRANSFER_TOKEN_SALT: "xxKt7zi/MQDZnUFnw9b0RQ=="
-  DATABASE_CLIENT: "postgres"
-  DATABASE_HOST: "postgresql-banjar-unhan.banjar-unhan.svc.cluster.local"
-  DATABASE_PORT: "5432"
-  DATABASE_NAME: "bahan_ajar_remake"
-  DATABASE_USERNAME: "postgres"
-  DATABASE_PASSWORD: "flh0918"
-  S3_REGION: "us-east-1"
-  S3_ACCESS: "L3XWKlfKP39a21Cv"
-  S3_SECRET: "antRVqohcUIThagJJ74dofItxIx70wKu"
-  S3_ENDPOINT: "http://minio-banjar-unhan.banjar-unhan.svc.cluster.local:30011"
-  S3_BUCKET: "banjar-remake"
-  JWT_SECRET: "SWtIId14IRFXElKTv/SUyg=="
-  SENTRY_DSN: "http://5427f74d666959482461d990baaf75de@10.70.0.30:9000/44"
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -36,9 +7,9 @@ metadata:
     reloader.stakater.com/auto: "true"
   labels:
     app: bahan-ajar
-    logging: "loki" 
+    logging: "loki"
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: bahan-ajar
@@ -61,18 +32,36 @@ spec:
           envFrom:
             - configMapRef:
                 name: bahan-ajar-config
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
 ---
-apiVersion: v1
-kind: Service
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
 metadata:
-  name: bahan-ajar-service
+  name: bahan-ajar-hpa
   namespace: banjar-unhan
 spec:
-  type: NodePort
-  selector:
-    app: bahan-ajar
-  ports:
-    - protocol: TCP
-      port: 1339
-      targetPort: 1339
-      nodePort: 31339
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: bahan-ajar-deployment
+  minReplicas: 2
+  maxReplicas: 5
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 50
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: 70

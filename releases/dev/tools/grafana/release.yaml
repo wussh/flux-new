@@ -1,87 +1,87 @@
-# apiVersion: source.toolkit.fluxcd.io/v1
-# kind: HelmRepository
-# metadata:
-#   name: grafana
-#   namespace: flux-system
-# spec:
-#   interval: 10m
-#   url: https://grafana.github.io/helm-charts
-# ---
-# apiVersion: helm.toolkit.fluxcd.io/v2
-# kind: HelmRelease
-# metadata:
-#   name: grafana
-#   namespace: internal
-# spec:
-#   releaseName: grafana
-#   interval: 5m
-#   chart:
-#     spec:
-#       chart: grafana
-#       sourceRef:
-#         kind: HelmRepository
-#         name: grafana
-#         namespace: flux-system
-#       version: "8.10.0"
-#   values:
-#     # Run a single Grafana pod
-#     replicas: 1
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: grafana
+  namespace: flux-system
+spec:
+  interval: 10m
+  url: https://grafana.github.io/helm-charts
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: grafana
+  namespace: internal
+spec:
+  releaseName: grafana
+  interval: 5m
+  chart:
+    spec:
+      chart: grafana
+      sourceRef:
+        kind: HelmRepository
+        name: grafana
+        namespace: flux-system
+      version: "8.10.0"
+  values:
+    # Run a single Grafana pod
+    replicas: 1
 
-#     # Enable RBAC and create a dedicated ServiceAccount
-#     rbac:
-#       create: true
+    # Enable RBAC and create a dedicated ServiceAccount
+    rbac:
+      create: true
 
-#     serviceAccount:
-#       create: true
+    serviceAccount:
+      create: true
 
-#     # Use the official Grafana Docker image from Docker Hub
-#     image:
-#       registry: docker.io
-#       repository: grafana/grafana
-#       tag: latest
-#       pullPolicy: IfNotPresent
+    # Use the official Grafana Docker image from Docker Hub
+    image:
+      registry: docker.io
+      repository: grafana/grafana
+      tag: latest
+      pullPolicy: IfNotPresent
 
-#     # Resource requests and limits (adjust based on your cluster capacity)
-#     resources:
-#       requests:
-#         cpu: 100m
-#         memory: 256Mi
-#       limits:
-#         cpu: 200m
-#         memory: 512Mi
+    # Resource requests and limits (adjust based on your cluster capacity)
+    resources:
+      requests:
+        cpu: 100m
+        memory: 256Mi
+      limits:
+        cpu: 200m
+        memory: 512Mi
 
-#     # Enable persistent storage to save dashboards and settings
-#     persistence:
-#       enabled: true
-#       size: 10Gi
+    # Enable persistent storage to save dashboards and settings
+    persistence:
+      enabled: true
+      size: 10Gi
 
-#     # Set the Grafana administrator credentials
-#     adminUser: admin
-#     adminPassword: falah0918
+    # Set the Grafana administrator credentials
+    adminUser: admin
+    adminPassword: falah0918
 
-#     # Create a ClusterIP service to expose Grafana inside the cluster
-#     service:
-#       type: NodePort
-#       port: 80         # The port on the service
-#       targetPort: 3000 # The container port where Grafana listens by default
-#       nodePort: 30070  # The port on each node through which Grafana will be accessible
+    # Create a ClusterIP service to expose Grafana inside the cluster
+    service:
+      type: NodePort
+      port: 80         # The port on the service
+      targetPort: 3000 # The container port where Grafana listens by default
+      nodePort: 30070  # The port on each node through which Grafana will be accessible
 
-#     # Ingress is disabled by default.
-#     ingress:
-#       enabled: false
+    # Ingress is disabled by default.
+    ingress:
+      enabled: false
 
-#     datasources:
-#       datasources.yaml:
-#         apiVersion: 1
-#         datasources:
-#           - name: Prometheus
-#             type: prometheus
-#             access: proxy
-#             url: http://prometheus-server.internal.svc.cluster.local
-#             isDefault: true
-#             editable: true
-#           - name: Loki
-#             type: loki
-#             access: proxy
-#             url: http://loki-gateway.internal.svc.cluster.local
-#             editable: true
+    datasources:
+      datasources.yaml:
+        apiVersion: 1
+        datasources:
+          - name: Prometheus
+            type: prometheus
+            access: proxy
+            url: http://prometheus-server.internal.svc.cluster.local
+            isDefault: true
+            editable: true
+          - name: Loki
+            type: loki
+            access: proxy
+            url: http://loki-gateway.internal.svc.cluster.local
+            editable: true
