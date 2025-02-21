@@ -22,4 +22,4 @@ spec:
     service:
       type: NodePort
       httpPort: 9000
-      httpNodePort: 30778
+      # httpNodePort: 30778
