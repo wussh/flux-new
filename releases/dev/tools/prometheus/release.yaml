@@ -60,4 +60,5 @@ spec:
       enabled: true
     prometheus-pushgateway:
       enabled: false
-    extraScrapeConfigs: "- job_name: 'external-node-exporter'\n  static_configs:\n    - targets:\n      - \"10.70.0.32:9100\"\n      - \"10.70.0.28:9100\"\n"
+    extraScrapeConfigs: "- job_name: 'node-10.70.0.32'\n  static_configs:\n    - targets:\n      - \"10.70.0.32:9100\"\n- job_name: 'node-10.70.0.28'\n  static_configs:\n    - targets:\n      - \"10.70.0.28:9100\"\n"
+
