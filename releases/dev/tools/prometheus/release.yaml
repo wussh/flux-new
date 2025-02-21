@@ -49,7 +49,6 @@ spec:
           - ReadWriteOnce
       extraFlags:
         - web.enable-lifecycle
-        serverFiles:
       serverFiles:
         prometheus.yml:
           scrape_configs:
