@@ -24,6 +24,19 @@ spec:
         namespace: flux-system
       version: "0.21.3"
   values:
+    deployments:
+      webserver:
+        enabled: true
+      executor:
+        enabled: true
+      indexer:
+        enabled: true
+      scheduler:
+        enabled: true
+      worker:
+        enabled: true
+      standalone:
+        enabled: false
     service:
       type: NodePort
       ports:
