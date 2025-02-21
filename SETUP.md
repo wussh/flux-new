@@ -106,3 +106,7 @@ kubectl get pods -n flux-system
 - [K3s Documentation](https://k3s.io/)
 - [Flux CD Documentation](https://fluxcd.io/)
 - [Homebrew on Linux](https://docs.brew.sh/Homebrew-on-Linux)
+
+metric server
+
+kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml

@@ -24,16 +24,15 @@ spec:
         namespace: flux-system
       version: "8.10.0"
   values:
-    replicas: 1
+    autoscaling:
+      enabled: true
+      minReplicas: 1
+      maxReplicas: 5
+      targetCPU: "60"
     rbac:
       create: true
     serviceAccount:
       create: true
-    image:
-      registry: docker.io
-      repository: grafana/grafana
-      tag: latest
-      pullPolicy: IfNotPresent
     resources:
       requests:
         cpu: 100m
