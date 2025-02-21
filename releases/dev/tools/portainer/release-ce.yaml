@@ -1,25 +1,25 @@
-apiVersion: helm.toolkit.fluxcd.io/v2beta1
-kind: HelmRelease
-metadata:
-  name: portainer-1
-  namespace: internal
-spec:
-  interval: 5m
-  releaseName: portainer-1
-  chart:
-    spec:
-      chart: portainer
-      sourceRef:
-        kind: HelmRepository
-        name: portainer
-        namespace: flux-system
-      version: "1.0.60"
-  values:
-    persistence:
-      storageClass: longhorn
-    enterpriseEdition:
-      enabled: false
-    service:
-      type: NodePort
-      httpPort: 9000
-      httpNodePort: 30778
+# apiVersion: helm.toolkit.fluxcd.io/v2beta1
+# kind: HelmRelease
+# metadata:
+#   name: portainer-1
+#   namespace: internal
+# spec:
+#   interval: 5m
+#   releaseName: portainer-1
+#   chart:
+#     spec:
+#       chart: portainer
+#       sourceRef:
+#         kind: HelmRepository
+#         name: portainer
+#         namespace: flux-system
+#       version: "1.0.60"
+#   values:
+#     persistence:
+#       storageClass: longhorn
+#     enterpriseEdition:
+#       enabled: false
+#     service:
+#       type: NodePort
+#       httpPort: 9000
+#       httpNodePort: 30778
