@@ -9,7 +9,7 @@ metadata:
     app: bahan-ajar
     logging: "loki"
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: bahan-ajar
@@ -51,7 +51,7 @@ spec:
     kind: Deployment
     name: bahan-ajar-deployment
   minReplicas: 1
-  maxReplicas: 10
+  maxReplicas: 5
   metrics:
     - type: Resource
       resource:
