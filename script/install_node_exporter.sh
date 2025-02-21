@@ -2,7 +2,7 @@
 set -e
 
 # Variables
-VERSION="1.3.1"
+VERSION="1.9.0"
 NODE_EXPORTER_DIR="node_exporter-${VERSION}.linux-amd64"
 TARBALL="${NODE_EXPORTER_DIR}.tar.gz"
 DOWNLOAD_URL="https://github.com/prometheus/node_exporter/releases/download/v${VERSION}/${TARBALL}"
