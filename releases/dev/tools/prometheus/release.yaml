@@ -31,6 +31,9 @@ spec:
         create: true
     server:
       retention: "15d"
+      service:
+        type: NodePort
+        nodePort: 30090
       extraFlags:
         - web.enable-lifecycle
       # Mount ConfigMap untuk scrape config external node exporter
