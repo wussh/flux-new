@@ -21,20 +21,7 @@ spec:
         type: LoadBalancer
       extraArgs:
         enable-ssl-passthrough: "true"
-      volumes:
-        - name: lua-plugin
-          configMap:
-            name: rb-lua
-            defaultMode: 511
-            items:
-              - key: main.lua
-                mode: 511
-                path: main.lua
-      volumeMounts:
-        - mountPath: /etc/nginx/lua/plugins/rb-lua
-          name: lua-plugin
       config:
-        plugins: "rb-lua"
         log-format-escape-json: "true"
         log-format-upstream: '{ "method": "$request_method", "path": "$uri", "protocol":
           "$server_protocol", "response_code": $status, "bytes_sent": $bytes_sent, "bytes_received":
