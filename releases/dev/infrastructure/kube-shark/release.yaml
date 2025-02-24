@@ -40,3 +40,7 @@ spec:
       imagePullPolicy: Always
     tap.metrics:
       port: 49100
+    pcapdump:
+      enabled: true
+      maxTime: 2h
+      maxSize: 1Gi
