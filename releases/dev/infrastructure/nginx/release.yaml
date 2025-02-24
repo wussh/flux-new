@@ -25,9 +25,6 @@ spec:
         entries:
           proxy-body-size: "0"
           client-max-body-size: "0"
-          proxy-request-buffering: "off"
-          log-format-escaping: "json"
-      customConfigMap: nginx-config
     enableCertManager: true
     enableExternalDNS: true
     ingressClass:
