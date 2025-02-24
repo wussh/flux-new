@@ -31,7 +31,54 @@ spec:
       config:
         log-format-escape-json: "true"
         log-format-upstream: >-
-          {"timestamp": "$time_iso8601", "requestID": "$req_id", "proxyUpstreamName": "$proxy_upstream_name", "proxyAlternativeUpstreamName": "$proxy_alternative_upstream_name", "upstreamStatus": "$upstream_status", "upstreamAddr": "$upstream_addr", "httpRequest": {"requestMethod": "$request_method", "requestUrl": "$host$request_uri", "status": $status, "requestSize": "$request_length", "responseSize": "$upstream_response_length", "userAgent": "$http_user_agent", "remoteIp": "$remote_addr", "referer": "$http_referer", "latency": "$upstream_response_time s", "protocol": "$server_protocol", "requestBody": "$request_body"}}
+          {
+            "timestamp": "$time_iso8601",
+            "requestID": "$req_id",
+            "proxyUpstreamName": "$proxy_upstream_name",
+            "proxyAlternativeUpstreamName": "$proxy_alternative_upstream_name",
+            "upstreamStatus": "$upstream_status",
+            "upstreamAddr": "$upstream_addr",
+            "httpRequest": {
+              "requestMethod": "$request_method",
+              "requestUrl": "$host$request_uri",
+              "status": $status,
+              "requestSize": "$request_length",
+              "responseSize": "$upstream_response_length",
+              "userAgent": "$http_user_agent",
+              "remoteIp": "$remote_addr",
+              "referer": "$http_referer",
+              "latency": "$upstream_response_time s",
+              "protocol": "$server_protocol",
+              "requestBody": "$request_body",
+              "requestHeaders": "$req_header"
+            },
+            "httpResponse": {
+              "responseBody": "$resp_body",
+              "responseHeaders": "$resp_header"
+            }
+          }
+        configuration-snippet: |
+          lua_need_request_body on;
+          set $resp_body "";
+          body_filter_by_lua '
+            local resp_body_chunk = string.sub(ngx.arg[1], 1, 1000)
+            ngx.ctx.buffered = (ngx.ctx.buffered or "") .. resp_body_chunk
+            if ngx.arg[2] then
+              ngx.var.resp_body = ngx.ctx.buffered
+            end
+          ';
+          set $req_header "";
+          set $resp_header "";
+          header_filter_by_lua '
+            local h = ngx.req.get_headers()
+            for k, v in pairs(h) do
+                ngx.var.req_header = ngx.var.req_header .. k .. "=" .. v .. " "
+            end
+            local rh = ngx.resp.get_headers()
+            for k, v in pairs(rh) do
+                ngx.var.resp_header = ngx.var.resp_header .. k .. "=" .. v .. " "
+            end
+          ';
         entries:
           proxy-body-size: "0"
           client-max-body-size: "0"
