@@ -4,14 +4,14 @@ metadata:
   name: kong
   namespace: flux-system
 spec:
-  interval: 10m0s
+  interval: 10m
   url: https://charts.konghq.com
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: kong
-  namespace: internal
+  namespace: kong
 spec:
   interval: 5m
   chart:
@@ -21,14 +21,11 @@ spec:
         kind: HelmRepository
         name: kong
         namespace: flux-system
-      version: "2.47.0"
+      version: 2.47.0
   values:
-    # proxy:
-    #   type: NodePort
     env:
-      log_level: debug
-      nginx_http_log_format:
-        valueFrom:
-          configMapKeyRef:  
-            key: upstream
-            name: kong-external-format-config
+      - name: NGINX_HTTP_LOG_FORMAT
+        value: >-
+          show_everything $remote_addr - $remote_user [$time_local]
+          "$request" $status $body_bytes_sent
+          "$http_referer" "$http_user_agent" "$request_body"
