@@ -10,15 +10,17 @@ data:
     local _M = {}
 
     function _M.body_filter()
-      local un = ngx.var.server_name
-      ngx.var.resp_body = un
-      ngx.var.resp_body = string.sub(ngx.arg[1], 1, 1000)
-      if un == "api.uat.algo.ir" then
-        local resp_body = string.sub(ngx.arg[1], 1, 1000)
-        ngx.ctx.buffered = (ngx.ctx.buffered or "") .. resp_body
-        if ngx.arg[2] then
-          ngx.var.resp_body = ngx.ctx.buffered
-        end
+      if not ngx.ctx.buffered then
+        ngx.ctx.buffered = ""
+      end
+
+      local chunk = ngx.arg[1] -- Capture response body chunk
+      if chunk then
+        ngx.ctx.buffered = ngx.ctx.buffered .. chunk
+      end
+
+      if ngx.arg[2] then -- Last chunk of the response
+        ngx.var.resp_body = string.sub(ngx.ctx.buffered, 1, 1000)
       end
     end
 

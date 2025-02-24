@@ -22,6 +22,8 @@ spec:
           nginx.ingress.kubernetes.io/server-snippet: |
             lua_need_request_body on;
             set $resp_body '';
+          nginx.ingress.kubernetes.io/configuration-snippet: |
+            body_filter_by_lua_file '/etc/nginx/lua/plugins/rb-lua/main.lua';
           acme.cert-manager.io/http01-edit-in-place: "true"
           cert-manager.io/cluster-issuer: letsencrypt-internal
           nginx.ingress.kubernetes.io/ssl-redirect: "false"
