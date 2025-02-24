@@ -1,27 +1,31 @@
-apiVersion: v1
 kind: ConfigMap
+apiVersion: v1
 metadata:
-  name: rb-lua
+  name: nginx-config
   namespace: internal
 data:
-  main.lua: |-
-    local ngx = ngx
+  log-format: |
+    '$remote_addr - $remote_user [$time_local] "$request" '
+    '$status $body_bytes_sent "$http_referer" '
+    '"$http_user_agent" "$http_x_forwarded_for" "$request_body"'
+  http-snippets: |
+    log_format custom_log '$remote_addr - $remote_user [$time_local] "$request" '
+                          '$status $body_bytes_sent "$http_referer" '
+                          '"$http_user_agent" "$http_x_forwarded_for" "$request_body"';
+    access_log /var/log/nginx/access.log custom_log;
+  server-snippets: |
+    lua_package_path "/usr/local/lib/lua/?.lua;;";
+    lua_package_cpath "/usr/local/lib/lua/?.so;;";
 
-    local _M = {}
-
-    function _M.body_filter()
-      if not ngx.ctx.buffered then
-        ngx.ctx.buffered = ""
+    set_by_lua_block $request_body_log '
+      local req_body = ngx.var.request_body
+      if req_body == nil then
+        return "no body"
+      else
+        return req_body
       end
+    ';
 
-      local chunk = ngx.arg[1] -- Capture response body chunk
-      if chunk then
-        ngx.ctx.buffered = ngx.ctx.buffered .. chunk
-      end
-
-      if ngx.arg[2] then -- Last chunk of the response
-        ngx.var.resp_body = string.sub(ngx.ctx.buffered, 1, 1000)
-      end
-    end
-
-    return _M
+    log_format custom_log '$remote_addr - $remote_user [$time_local] "$request" '
+                          '$status $body_bytes_sent "$http_referer" '
+                          '"$http_user_agent" "$http_x_forwarded_for" "$request_body_log"';
