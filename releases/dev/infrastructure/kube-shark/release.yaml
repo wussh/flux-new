@@ -22,4 +22,4 @@ spec:
         kind: HelmRepository
         name: kubeshark
         namespace: flux-system
-      version: 52.4.0
+      version: 52.4
