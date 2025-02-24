@@ -26,6 +26,8 @@ kind: Service
 metadata:
   name: httpbin
   namespace: internal
+  annotations:
+    konghq.com/plugins: file-log-capture-body
 spec:
   selector:
     app: httpbin
@@ -42,6 +44,7 @@ metadata:
   namespace: internal
   annotations:
     konghq.com/strip-path: "true"
+    konghq.com/plugins: file-log-capture-body
 spec:
   ingressClassName: kong
   rules:
