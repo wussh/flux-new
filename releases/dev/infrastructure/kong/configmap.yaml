@@ -1,12 +1,7 @@
 apiVersion: configuration.konghq.com/v1
 kind: KongPlugin
 metadata:
-  name: file-log-capture-body
-  namespace: internal
-  annotations:
-    konghq.com/global: "true"
+  name: file-log-example
 plugin: file-log
 config:
-  path: /tmp/kong-requests.log
-  custom_fields_by_lua:
-    request_body: 'return kong.request.get_raw_body()'
+  path: "/tmp/file.log"
