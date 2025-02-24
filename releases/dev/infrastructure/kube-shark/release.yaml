@@ -13,7 +13,7 @@ metadata:
   name: kubeshark
   namespace: internal
 spec:
-  releaseName: kubeshark
+  releaseName: kubeshark-1
   interval: 5m
   chart:
     spec:
@@ -35,9 +35,6 @@ spec:
       disableTlsLog: false
     tap.persistentStorage: false
     tap.storageLimit: 1Gi
-    tap.docker:
-      tagLocked: false
-      imagePullPolicy: Always
     tap.metrics:
       port: 49100
     pcapdump:
