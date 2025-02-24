@@ -19,12 +19,13 @@ spec:
         ingressClassName: "nginx"
         hostname: test.10-70-0-45.sslip.io
         annotations:
-          nginx.ingress.kubernetes.io/configuration-snippet: |
-            lua_need_request_body on;
-            log_by_lua_block {
-              local body = ngx.var.request_body or "";
-              ngx.log(ngx.INFO, "Captured Request Body: " .. body);
-            }
+          nginx.ingress.kubernetes.io/modsecurity: "true"
+          nginx.ingress.kubernetes.io/modsecurity-snippet: |
+            SecRequestBodyAccess On
+            SecAuditEngine On
+            SecAuditLog /var/log/modsec_audit.log
+            SecRuleEngine On
+            SecRule REQUEST_BODY ".*" "log,pass,phase:2,id:1001"
           acme.cert-manager.io/http01-edit-in-place: "true"
           cert-manager.io/cluster-issuer: letsencrypt-internal
           nginx.ingress.kubernetes.io/ssl-redirect: "false"
