@@ -23,6 +23,8 @@ spec:
         namespace: flux-system
       version: "2.47.0"
   values:
+    proxy:
+      type: NodePort
     env:
       log_level: debug
       nginx_http_log_format:
