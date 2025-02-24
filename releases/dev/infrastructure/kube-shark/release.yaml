@@ -34,6 +34,7 @@ spec:
       tls: true
       disableTlsLog: false
       bpfOverride: ["net 0.0.0.0/0"]
+      privileged: true
       hostNetwork: true
     tap.persistentStorage: false
     tap.storageLimit: 1Gi
