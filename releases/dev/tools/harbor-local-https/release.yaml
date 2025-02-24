@@ -23,7 +23,7 @@ spec:
             lua_need_request_body on;
             log_by_lua_block {
               local body = ngx.var.request_body or "";
-              ngx.log(ngx.ERR, "Captured Request Body: " .. body);
+              ngx.log(ngx.INFO, "Captured Request Body: " .. body);
             }
           acme.cert-manager.io/http01-edit-in-place: "true"
           cert-manager.io/cluster-issuer: letsencrypt-internal
