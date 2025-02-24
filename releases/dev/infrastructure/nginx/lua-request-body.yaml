@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-configuration
+  namespace: internal
+data:
+  configuration-snippet: |
+    lua_need_request_body on;
+    log_by_lua_block {
+      local body = ngx.var.request_body or "";
+      ngx.log(ngx.ERR, "Global Captured Request Body: " .. body);
+    }
