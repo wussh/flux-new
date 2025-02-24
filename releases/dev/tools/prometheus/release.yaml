@@ -60,6 +60,6 @@ spec:
       enabled: true
     prometheus-pushgateway:
       enabled: false
-    extraScrapeConfigs: "- job_name: 'vm-staging'\n  static_configs:\n    - targets:\n      - \"10.70.0.32:9100\"\n      - \"10.70.0.28:9100\"\n"
+    extraScrapeConfigs: "- job_name: 'vm-staging'\n  static_configs:\n    - targets:\n      - \"10.70.0.32:9100\"\n      - \"10.70.0.28:9100\"\n      - \"10.70.0.29:9100\"\n      - \"10.70.0.30:9100\"\n      - \"10.70.0.34:9100\"\n      - \"10.70.0.36:9100\"\n      - \"10.70.0.41:9100\"\n"
 
 
