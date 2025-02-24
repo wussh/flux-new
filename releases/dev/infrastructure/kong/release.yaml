@@ -23,8 +23,11 @@ spec:
         namespace: flux-system
       version: 2.47.0
   values:
+    plugins:
+      configMaps:
+      - pluginName: file-log-capture-body
+        name: file-log-capture-body
     env:
-      KONG_PLUGINS: "bundled,file-log"
       NGINX_HTTP_LOG_FORMAT: >-
         show_everything $remote_addr - $remote_user [$time_local] "$request" $status
         $body_bytes_sent "$http_referer" "$http_user_agent" "$request_body"
