@@ -24,8 +24,6 @@ spec:
       version: 2.47.0
   values:
     env:
-      - name: NGINX_HTTP_LOG_FORMAT
-        value: >-
-          show_everything $remote_addr - $remote_user [$time_local]
-          "$request" $status $body_bytes_sent
-          "$http_referer" "$http_user_agent" "$request_body"
+      NGINX_HTTP_LOG_FORMAT: >-
+        show_everything $remote_addr - $remote_user [$time_local] "$request" $status
+        $body_bytes_sent "$http_referer" "$http_user_agent" "$request_body"
