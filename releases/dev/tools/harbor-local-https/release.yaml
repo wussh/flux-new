@@ -19,6 +19,9 @@ spec:
         ingressClassName: "nginx"
         hostname: test.10-70-0-45.sslip.io
         annotations:
+          nginx.ingress.kubernetes.io/server-snippet: |
+            lua_need_request_body on;
+            set $resp_body '';
           acme.cert-manager.io/http01-edit-in-place: "true"
           cert-manager.io/cluster-issuer: letsencrypt-internal
           nginx.ingress.kubernetes.io/ssl-redirect: "false"

@@ -19,12 +19,21 @@ spec:
       electionID: "nginx-ingress-leader-election"
       service:
         type: LoadBalancer
-      configMap: "nginx-controller-config"
-      ingressClassResource:
-        name: nginx
-        default: true
       extraArgs:
         enable-ssl-passthrough: "true"
+      configMap: "nginx-controller-config"
+      volumes:
+        - name: lua-plugin
+          configMap:
+            name: rb-lua
+            defaultMode: 511
+            items:
+              - key: main.lua
+                mode: 511
+                path: main.lua
+      volumeMounts:
+        - mountPath: /etc/nginx/lua/plugins/rb-lua
+          name: lua-plugin
     enableCertManager: true
     enableExternalDNS: true
     ingressClass:
