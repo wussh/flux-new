@@ -21,7 +21,7 @@ spec:
         kind: HelmRepository
         name: kong
         namespace: flux-system
-      version: "2.0.1"
+      version: "2.47.0"
   values:
     env:
       log_level: debug
