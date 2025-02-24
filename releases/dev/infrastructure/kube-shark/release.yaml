@@ -33,6 +33,8 @@ spec:
       serviceMesh: true
       tls: true
       disableTlsLog: false
+      bpfOverride: ["net 0.0.0.0/0"]
+      hostNetwork: true
     tap.persistentStorage: false
     tap.storageLimit: 1Gi
     tap.metrics:
