@@ -22,6 +22,21 @@ spec:
         kind: HelmRepository
         name: kubeshark
         namespace: flux-system
-      version: 52.3.96
+      version: "52.3.96"
   values:
     headless: true
+    tap:
+      regex: ".*"
+      namespaces: ["internal", "ingress-nginx"]
+      excludedNamespaces: []
+      stopped: false
+      serviceMesh: true
+      tls: true
+      disableTlsLog: false
+    tap.persistentStorage: false
+    tap.storageLimit: 1Gi
+    tap.docker:
+      tagLocked: false
+      imagePullPolicy: Always
+    tap.metrics:
+      port: 49100
