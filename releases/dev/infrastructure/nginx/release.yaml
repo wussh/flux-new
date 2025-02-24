@@ -1,12 +1,3 @@
-apiVersion: source.toolkit.fluxcd.io/v1
-kind: HelmRepository
-metadata:
-  name: nginx
-  namespace: flux-system
-spec:
-  interval: 10m0s
-  url: https://helm.nginx.com/stable
----
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
@@ -30,7 +21,6 @@ spec:
         type: LoadBalancer
       extraArgs:
         enable-ssl-passthrough: "true"
-      configMap: "nginx-controller-config"
       volumes:
         - name: lua-plugin
           configMap:
@@ -44,6 +34,16 @@ spec:
         - mountPath: /etc/nginx/lua/plugins/rb-lua
           name: lua-plugin
       config:
+        plugins: "rb-lua"
+        log-format-escape-json: "true"
+        log-format-upstream: '{ "method": "$request_method", "path": "$uri", "protocol":
+          "$server_protocol", "response_code": $status, "bytes_sent": $bytes_sent, "bytes_received":
+          $request_length, "duration": $request_time, "upstream_service_name": "$proxy_upstream_name",
+          "upstream_service_time": $upstream_response_time, "x_forwarded_for": "$proxy_add_x_forwarded_for",
+          "user_agent": "$http_user_agent", "request_id": "$req_id", "authority": "$host",
+          "time": "$time_iso8601", "remote_addr": "$proxy_protocol_addr", "remote_user":
+          "$remote_user", "request_time": $request_time, "request_query": "$args", "http_referrer":
+          "$http_referer", "resp_body": "$resp_body"}'
         entries:
           proxy-body-size: "0"
           client-max-body-size: "0"
