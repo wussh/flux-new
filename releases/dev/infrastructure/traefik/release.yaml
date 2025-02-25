@@ -69,10 +69,10 @@ spec:
     app.kubernetes.io/name: traefik
     app.kubernetes.io/instance: traefik
   ports:
-  - port: 8080
-    name: traefik
-    targetPort: 8080
-    protocol: TCP
+    - port: 8080
+      name: traefik
+      targetPort: 8080
+      protocol: TCP
 ---
 apiVersion: v1
 kind: Secret
@@ -103,13 +103,13 @@ metadata:
     traefik.ingress.kubernetes.io/router.middlewares: internal-traefik-dashboard-auth@kubernetescrd
 spec:
   rules:
-  - host: traefik.10-70-0-45.sslip.io
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: traefik-api
-            port:
-              name: traefik
+    - host: traefik.10-70-0-45.sslip.io
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: traefik-api
+                port:
+                  number: 8080
