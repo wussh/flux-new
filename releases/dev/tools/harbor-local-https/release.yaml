@@ -1,47 +1,47 @@
-# apiVersion: helm.toolkit.fluxcd.io/v2
-# kind: HelmRelease
-# metadata:
-#   name: harbor-5
-#   namespace: internal
-# spec:
-#   releaseName: harbor-5
-#   interval: 5m
-#   chartRef:
-#     kind: OCIRepository
-#     name: harbor
-#     namespace: flux-system
-#   values:
-#     adminPassword: "falah0918"
-#     externalURL: http://test.10-70-0-45.sslip.io
-#     exposureType: ingress
-#     ingress:
-#       core:
-#         ingressClassName: "nginx"
-#         hostname: test.10-70-0-45.sslip.io
-#         annotations:
-#           nginx.ingress.kubernetes.io/enable-modsecurity: "true"
-#           nginx.ingress.kubernetes.io/modsecurity-snippet: |
-#             SecRequestBodyAccess On
-#             SecAuditLogParts ABIJDEFHZ
-#           acme.cert-manager.io/http01-edit-in-place: "true"
-#           cert-manager.io/cluster-issuer: letsencrypt-internal
-#           nginx.ingress.kubernetes.io/ssl-redirect: "false"
-#           ingress.kubernetes.io/ssl-redirect: "false"
-#         tls: false
-#         # extraTls:
-#         #   - hosts:
-#         #       - test.10-70-0-45.sslip.io
-#         #     secretName: wildcard-sslip-tls
-#     portal:
-#       resourcesPreset: nano
-#     core:
-#       resourcesPreset: nano
-#     jobservice:
-#       resourcesPreset: nano
-#     registry:
-#       server:
-#         resourcesPreset: nano
-#       controller:
-#         resourcesPreset: nano
-#     trivy:
-#       resourcesPreset: nano
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: harbor-5
+  namespace: internal
+spec:
+  releaseName: harbor-5
+  interval: 5m
+  chartRef:
+    kind: OCIRepository
+    name: harbor
+    namespace: flux-system
+  values:
+    adminPassword: "falah0918"
+    externalURL: http://test.10-70-0-45.sslip.io
+    exposureType: ingress
+    ingress:
+      core:
+        ingressClassName: "nginx"
+        hostname: test.10-70-0-45.sslip.io
+        annotations:
+          nginx.ingress.kubernetes.io/enable-modsecurity: "true"
+          nginx.ingress.kubernetes.io/modsecurity-snippet: |
+            SecRequestBodyAccess On
+            SecAuditLogParts ABIJDEFHZ
+          acme.cert-manager.io/http01-edit-in-place: "true"
+          cert-manager.io/cluster-issuer: letsencrypt-internal
+          nginx.ingress.kubernetes.io/ssl-redirect: "false"
+          ingress.kubernetes.io/ssl-redirect: "false"
+        tls: false
+        # extraTls:
+        #   - hosts:
+        #       - test.10-70-0-45.sslip.io
+        #     secretName: wildcard-sslip-tls
+    portal:
+      resourcesPreset: nano
+    core:
+      resourcesPreset: nano
+    jobservice:
+      resourcesPreset: nano
+    registry:
+      server:
+        resourcesPreset: nano
+      controller:
+        resourcesPreset: nano
+    trivy:
+      resourcesPreset: nano
