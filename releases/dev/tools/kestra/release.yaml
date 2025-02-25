@@ -43,3 +43,18 @@ spec:
           size: 2Gi
     dind:
       enabled: false
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: kestra-ingress
+  namespace: internal
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`kestra.10-70-0-45.sslip.io`)
+      kind: Rule
+      services:
+        - name: kestra-service
+          port: 8080
