@@ -26,7 +26,7 @@ spec:
   values:
     deployments:
       webserver:
-        enabled: false
+        enabled: true
       executor:
         enabled: false
       indexer:
@@ -36,7 +36,7 @@ spec:
       worker:
         enabled: false
       standalone:
-        enabled: true
+        enabled: false
     postgresql:
       primary:
         persistence:
