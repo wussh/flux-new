@@ -16,21 +16,10 @@ spec:
       version: "6.27.0"
   values:
     gateway:
-      ingress:
-        enabled: true
-        annotations:
-          traefik.ingress.kubernetes.io/router.entrypoints: web
-        hosts:
-          - host: loki.10-70-0-45.sslip.io
-            paths:
-              - path: /
-                pathType: Prefix
-                backend:
-                  service:
-                    name: loki-gateway
-                    port:
-                      number: 80
-        tls: {}
+      service:
+        port: 80
+        type: NodePort
+        nodePort: 30050
       replicas: 3
       affinity:
         podAntiAffinity:
