@@ -22,6 +22,15 @@ spec:
           traefik.ingress.kubernetes.io/router.entrypoints: web
         hosts:
           - host: loki.10-70-0-45.sslip.io
+        tls: {}
+      replicas: 3
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchLabels:
+                  app.kubernetes.io/component: nonexistent
+              topologyKey: kubernetes.io/hostname
     loki:
       auth_enabled: false
       schemaConfig:
@@ -40,15 +49,6 @@ spec:
       querier:
         max_concurrent: 2
     deploymentMode: SimpleScalable 
-    gateway:
-      replicas: 10
-      affinity:
-        podAntiAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            - labelSelector:
-                matchLabels:
-                  app.kubernetes.io/component: nonexistent
-              topologyKey: kubernetes.io/hostname
     backend:
       replicas: 3
       affinity:
