@@ -27,23 +27,6 @@ spec:
     deployments:
       webserver:
         enabled: true
-        autoscaler:
-          enabled: true
-          minReplicas: 1
-          maxReplicas: 3
-          metrics:
-           - type: Resource
-             resource:
-               name: cpu
-               target:
-                 type: Utilization
-                 averageUtilization: 50
-           - type: Resource
-             resource:
-               name: memory
-               target:
-                 type: AverageValue
-                 averageValue: 100Mi
       executor:
         enabled: true
       indexer:
@@ -60,7 +43,7 @@ spec:
         - name: http
           port: 80
           targetPort: 8080
-          nodePort: 30080
+          nodePort: 30020
     postgresql:
       primary:
         persistence:
