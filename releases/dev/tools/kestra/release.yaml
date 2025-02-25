@@ -1,69 +1,69 @@
-apiVersion: source.toolkit.fluxcd.io/v1
-kind: HelmRepository
-metadata:
-  name: kestra
-  namespace: flux-system
-spec:
-  interval: 10m
-  url: https://helm.kestra.io
----
-apiVersion: helm.toolkit.fluxcd.io/v2
-kind: HelmRelease
-metadata:
-  name: kestra
-  namespace: internal
-spec:
-  releaseName: kestra
-  interval: 5m
-  chart:
-    spec:
-      chart: kestra
-      sourceRef:
-        kind: HelmRepository
-        name: kestra
-        namespace: flux-system
-      version: "0.21.3"
-  values:
-    deployments:
-      webserver:
-        enabled: true
-      executor:
-        enabled: true
-      indexer:
-        enabled: true
-      scheduler:
-        enabled: true
-      worker:
-        enabled: true
-      standalone:
-        enabled: false
-    service:
-      type: NodePort
-      ports:
-        - name: http
-          port: 80
-          targetPort: 8080
-          nodePort: 30020
-    postgresql:
-      primary:
-        persistence:
-          size: 2Gi
-    resources:
-      limits:
-        cpu: 200m
-        memory: 756Mi
-      requests:
-        cpu: 150m
-        memory: 512Mi
-    dind:
-      enabled: true
-      image:
-        tag: dind
-      args:
-        - --log-level=fatal
-      securityContext:
-        runAsUser: 0
-        runAsGroup: 0
-    securityContext:
-      runAsUser: 0
-      runAsGroup: 0
+# apiVersion: source.toolkit.fluxcd.io/v1
+# kind: HelmRepository
+# metadata:
+#   name: kestra
+#   namespace: flux-system
+# spec:
+#   interval: 10m
+#   url: https://helm.kestra.io
+# ---
+# apiVersion: helm.toolkit.fluxcd.io/v2
+# kind: HelmRelease
+# metadata:
+#   name: kestra
+#   namespace: internal
+# spec:
+#   releaseName: kestra
+#   interval: 5m
+#   chart:
+#     spec:
+#       chart: kestra
+#       sourceRef:
+#         kind: HelmRepository
+#         name: kestra
+#         namespace: flux-system
+#       version: "0.21.3"
+#   values:
+#     deployments:
+#       webserver:
+#         enabled: true
+#       executor:
+#         enabled: true
+#       indexer:
+#         enabled: true
+#       scheduler:
+#         enabled: true
+#       worker:
+#         enabled: true
+#       standalone:
+#         enabled: false
+#     service:
+#       type: NodePort
+#       ports:
+#         - name: http
+#           port: 80
+#           targetPort: 8080
+#           nodePort: 30020
+#     postgresql:
+#       primary:
+#         persistence:
+#           size: 2Gi
+#     resources:
+#       limits:
+#         cpu: 200m
+#         memory: 756Mi
+#       requests:
+#         cpu: 150m
+#         memory: 512Mi
+#     dind:
+#       enabled: true
+#       image:
+#         tag: dind
+#       args:
+#         - --log-level=fatal
+#       securityContext:
+#         runAsUser: 0
+#         runAsGroup: 0
+#     securityContext:
+#       runAsUser: 0
+#       runAsGroup: 0
