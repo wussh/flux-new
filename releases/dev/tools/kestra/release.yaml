@@ -1,50 +1,95 @@
-# apiVersion: source.toolkit.fluxcd.io/v1
-# kind: HelmRepository
-# metadata:
-#   name: kestra
-#   namespace: flux-system
-# spec:
-#   interval: 10m
-#   url: https://helm.kestra.io
-# ---
-# apiVersion: helm.toolkit.fluxcd.io/v2
-# kind: HelmRelease
-# metadata:
-#   name: kestra
-#   namespace: internal
-# spec:
-#   releaseName: kestra
-#   interval: 5m
-#   chart:
-#     spec:
-#       chart: kestra
-#       sourceRef:
-#         kind: HelmRepository
-#         name: kestra
-#         namespace: flux-system
-#       version: "0.21.3"
-#   values:
-#     deployments:
-#       webserver:
-#         enabled: true
-#       executor:
-#         enabled: true
-#       indexer:
-#         enabled: true
-#       scheduler:
-#         enabled: true
-#       worker:
-#         enabled: true
-#       standalone:
-#         enabled: false
-#     postgresql:
-#       primary:
-#         persistence:
-#           size: 2Gi
-#     resources:
-#       limits:
-#         cpu: 200m
-#         memory: 756Mi
-#       requests:
-#         cpu: 150m
-#         memory: 512Mi
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: kestra
+  namespace: flux-system
+spec:
+  interval: 10m
+  url: https://helm.kestra.io
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: kestra
+  namespace: internal   # Change to your desired namespace
+spec:
+  releaseName: kestra
+  interval: 5m
+  chart:
+    spec:
+      chart: kestra
+      version: "0.21.3"   # Adjust the chart version as needed
+      sourceRef:
+        kind: HelmRepository
+        name: kestra
+        namespace: flux-system
+  values:
+    #
+    # Separate deployments, disable the single 'standalone' mode
+    #
+    deployments:
+      webserver:
+        enabled: true
+      executor:
+        enabled: true
+      indexer:
+        enabled: true
+      scheduler:
+        enabled: true
+      worker:
+        enabled: true
+      standalone:
+        enabled: false
+
+    #
+    # Example: Configure Kestra to use Kafka for the queue
+    # If not using Kafka, remove 'configuration' & 'secrets' below
+    #
+    configuration:
+      kestra:
+        queue:
+          type: kafka
+
+    secrets:
+      kestra:
+        kafka:
+          client:
+            properties:
+              bootstrap.servers: "my-kafka:9092"
+
+    #
+    # Persistence & Database settings (PostgreSQL by default)
+    #
+    postgresql:
+      enabled: true
+      primary:
+        persistence:
+          size: 2Gi
+
+    #
+    # Example resource requests/limits for the main Kestra containers
+    #
+    resources:
+      requests:
+        cpu: 150m
+        memory: 512Mi
+      limits:
+        cpu: 200m
+        memory: 756Mi
+
+    #
+    # MinIO is enabled by default for internal storage; remove or customize as needed
+    #
+    # minio:
+    #   enabled: true
+    #   auth:
+    #     rootUser: change-me
+    #     rootPassword: super-secret
+
+    #
+    # Docker-in-Docker (DinD) rootless sidecar is enabled by default.
+    # If you don't need Docker-based tasks, you can disable it:
+    #
+    # dind:
+    #   enabled: false
