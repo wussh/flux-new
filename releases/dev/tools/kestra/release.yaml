@@ -56,7 +56,7 @@ spec:
         cpu: 150m
         memory: 512Mi
     dind:
-      enabled: false
+      enabled: true
       image:
         tag: dind
       args:
