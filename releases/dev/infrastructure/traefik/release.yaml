@@ -21,5 +21,5 @@ spec:
         kind: HelmRepository
         name: traefik
         namespace: flux-system
-      version: "34.4.0"
+      version: "1.4.0"
   values:
