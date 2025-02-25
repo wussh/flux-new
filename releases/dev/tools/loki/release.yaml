@@ -15,6 +15,14 @@ spec:
         namespace: flux-system
       version: "6.27.0"
   values:
+    gateway:
+      ingress:
+        enabled: true
+        annotations:
+          traefik.ingress.kubernetes.io/router.entrypoints: web
+        hosts:
+          - host: loki.10-70-0-45.sslip.io
+        tls: {}
     loki:
       auth_enabled: false
       schemaConfig:
