@@ -56,3 +56,5 @@ spec:
       services:
         - name: kestra-service
           port: 8080
+      middlewares:
+        - name: traefik-dashboard-auth
