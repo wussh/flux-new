@@ -28,13 +28,13 @@ spec:
       webserver:
         enabled: true
       executor:
-        enabled: false
+        enabled: true
       indexer:
-        enabled: false
+        enabled: true
       scheduler:
-        enabled: false
+        enabled: true
       worker:
-        enabled: false
+        enabled: true
       standalone:
         enabled: false
     postgresql:
