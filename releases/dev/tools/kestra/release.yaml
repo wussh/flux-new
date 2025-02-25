@@ -55,3 +55,5 @@ spec:
       requests:
         cpu: 150m
         memory: 512Mi
+    dind:
+      enabled: disable
