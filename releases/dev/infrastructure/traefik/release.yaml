@@ -59,22 +59,6 @@ spec:
           internal: true
 ---
 apiVersion: v1
-kind: Service
-metadata:
-  name: traefik-api
-  namespace: internal
-spec:
-  type: ClusterIP
-  selector:
-    app.kubernetes.io/name: traefik
-    app.kubernetes.io/instance: traefik
-  ports:
-    - port: 8080
-      name: traefik
-      targetPort: 8080
-      protocol: TCP
----
-apiVersion: v1
 kind: Secret
 metadata:
   name: traefik-dashboard-auth-secret
@@ -110,6 +94,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: traefik-api
+                name: traefik-internal
                 port:
                   number: 8080
