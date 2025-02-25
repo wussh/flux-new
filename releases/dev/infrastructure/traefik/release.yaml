@@ -88,8 +88,8 @@ spec:
     - host: traefik.10-70-0-45.sslip.io
       http:
         paths:
-          - path: /
-            pathType: Prefix
+          - path: /dashboard/
+            pathType: ImplementationSpecific
             backend:
               service:
                 name: traefik-internal
