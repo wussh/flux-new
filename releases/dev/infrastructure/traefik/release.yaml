@@ -43,7 +43,7 @@ spec:
   values:
     ingressRoute:
       dashboard:
-        enabled: false
+        enabled: true
     additionalArguments:
       - "--api.insecure=true"
     service:
