@@ -16,7 +16,6 @@ spec:
     exposureType: ingress
     ingress:
       core:
-        ingressClassName: "nginx"
         hostname: test.10-70-0-45.sslip.io
         annotations:
           acme.cert-manager.io/http01-edit-in-place: "true"
