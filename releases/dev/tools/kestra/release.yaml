@@ -26,17 +26,17 @@ spec:
   values:
     deployments:
       webserver:
-        enabled: true
-      executor:
-        enabled: true
-      indexer:
-        enabled: true
-      scheduler:
-        enabled: true
-      worker:
-        enabled: true
-      standalone:
         enabled: false
+      executor:
+        enabled: false
+      indexer:
+        enabled: false
+      scheduler:
+        enabled: false
+      worker:
+        enabled: false
+      standalone:
+        enabled: true
     postgresql:
       primary:
         persistence:
