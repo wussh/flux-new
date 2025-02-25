@@ -50,8 +50,6 @@ spec:
       additionalServices:
         internal:
           type: ClusterIP
-          labels:
-            traefik-service-label: internal
     ports:
       traefik:
         expose:
