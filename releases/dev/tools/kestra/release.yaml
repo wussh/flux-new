@@ -56,4 +56,13 @@ spec:
         cpu: 150m
         memory: 512Mi
     dind:
-      enabled: disable
+      image:
+        tag: dind
+      args:
+        - --log-level=fatal
+      securityContext:
+        runAsUser: 0
+        runAsGroup: 0
+    securityContext:
+      runAsUser: 0
+      runAsGroup: 0
